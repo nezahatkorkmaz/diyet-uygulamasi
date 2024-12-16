@@ -52,3 +52,33 @@ app.post("/meals", async (req, res) => {
 });
 
 module.exports = app;
+
+app.post('/symptoms', async (req, res) => {
+  try {
+      const { userId, mealId, symptomDescription } = req.body;
+      const symptom = await Symptom.create({
+          user_id: userId,
+          meal_id: mealId,
+          symptom_description: symptomDescription,
+      });
+      res.status(201).json(symptom);
+  } catch (err) {
+      res.status(500).json({ error: 'Semptom eklenirken hata oluştu.' });
+  }
+});
+
+app.get('/symptoms', async (req, res) => {
+  try {
+      const { userId, filter } = req.query;
+      const symptoms = await Symptom.findAll({
+          where: {
+              user_id: userId,
+              symptom_description: { [Op.iLike]: `%${filter}%` },
+          },
+          include: Meal,
+      });
+      res.json(symptoms);
+  } catch (err) {
+      res.status(500).json({ error: 'Semptomlar alınırken hata oluştu.' });
+  }
+});

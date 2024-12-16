@@ -7,6 +7,14 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+-- Semptomlar
+CREATE TABLE symptoms (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    meal_id INT REFERENCES meals(id),
+    symptom_description TEXT,
+    logged_at TIMESTAMP DEFAULT NOW()
+);
 
 -- Yemekler Tablosu
 CREATE TABLE meals (
