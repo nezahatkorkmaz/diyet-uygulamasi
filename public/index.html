@@ -20,89 +20,84 @@
   <!-- Home Section -->
   <section id="home">
     <header class="header">
-      <div class="welcome-summary-container">
-        <!-- Summary Data -->
-        <section class="summary">
-          <h2>Summary Data</h2>
-          <div class="card">
+      <div class="header-container">
+        <!-- Container 1: User's Goals (Now a feature-container) -->
+        <div class="feature-container">
+          <h3>Hedefler</h3>
+          <div class="goal-card">
             <p>Calories Consumed: <span id="calories-consumed">1200 kcal</span></p>
             <p>Water Consumption: <span id="water-consumption">2L</span></p>
             <p>Weight Change: <span id="weight-change">-0.2 kg</span></p>
           </div>
-        </section>
-
-        <!-- Avatar -->
-        <div class="avatar-container">
-          <img src="https://via.placeholder.com/60" alt="Avatar" class="avatar">
         </div>
 
-        <!-- Welcome Message -->
-        <section class="welcome">
-          <h1>Diyet Uygulaması</h1>
+        <!-- Container 2: Avatar -->
+        <div class="avatar-container">
+          <img src="public/images/Avatar.jpg" alt="Avatar" class="avatar">
+        </div>
+  
+        <!-- Container 3: Welcome Message -->
+        <div class="welcome-container">
+          <h1>DİYET UYGULAMASI</h1>
           <p class="greeting">Hello, Ali Yılmaz! What did you eat today?</p>
-        </section>
+        </div>
       </div>
     </header>
 
-    <!-- Feature Containers: Water Logs, Today's Meals, Calorie Tracking, Weight Tracking -->
-    <div class="feature-containers">
-    <!-- Water Logs -->
-    <div class="feature-container">
-        <h3>Water Logs</h3>
-        <p>Track your daily water intake</p>
-        <div>
-        <p>Daily Water Target: <span id="water-target">2L</span></p>
-        <p>Current Water Intake: <span id="current-water">0L</span></p>
-        <button class="button" onclick="logWater()">Log Water</button>
-        <p id="water-message"></p>
+    <!-- Feature Section: Symptom and Today's Meals -->
+    <section id="feature">
+      <div class="feature-containers">
+        <div class="feature-container">
+          <h3>Symptom and Today's Meals</h3>
+          <div class="symptom-meal-container">
+            <!-- Left side for symptom selection -->
+            <div class="symptom-container">
+              <h4>Symptoms</h4>
+              <input type="text" id="symptom-input" placeholder="Enter symptom (e.g., bloating)" />
+            </div>
+            
+            <!-- Right side for meal input -->
+            <div class="meal-container">
+              <h4>Today's Meals</h4>
+              <input type="text" id="meal-input" placeholder="Enter meal here" />
+              <button class="button" id="add-meal-button">Add Meal</button>
+            </div>
+          </div>
+          
+          <!-- Symptom Log Confirmation -->
+          <p id="symptom-message"></p>
         </div>
-    </div>
+      </div>
 
-    <!-- Today's Meals -->
-    <div class="feature-container">
-        <h3>Today's Meals</h3>
-        <p>What did you eat today?</p>
-        <div>
-        <!-- Meal Input -->
-        <input type="text" id="meal-input" placeholder="Enter meal here" />
-        <button class="button">Add Meal</button>
-
-        <!-- Symptom Filter -->
-        <h4>Symptoms</h4>
-        <select id="symptom-select">
-            <option value="none">Select Symptom</option>
-            <option value="bloating">Bloating</option>
-            <option value="headache">Headache</option>
-            <option value="fatigue">Fatigue</option>
-        </select>
+      <!-- Water Logs -->
+      <div class="feature-containers">
+        <div class="feature-container">
+          <h3>Water Logs</h3>
+          <p>Track your daily water intake</p>
+          <p>Daily Water Target: 2L</p>
+          <p>Current Water Intake: 0L</p>
+          <button class="button" onclick="logWater()">Log Water</button>
+          <p id="water-message"></p>
         </div>
-    </div>
-    </div>
 
-    <!-- Second row -->
-    <div class="feature-containers">
-    <!-- Calorie Tracking -->
-    <div class="feature-container">
-        <h3>Calorie Tracking</h3>
-        <p>Upload your meal image to estimate calories</p>
-        <div class="image-container">
-        <img src="public/images/kilo-takibi-metre.png" alt="Calorie Tracking" />
+        <!-- Calorie Tracking -->
+        <div class="feature-container">
+          <h3>Calorie Tracking</h3>
+          <p>Upload your meal image to estimate calories</p>
+          <input type="file" id="mealImage" />
+          <button class="button">Estimate Calories</button>
         </div>
-        <input type="file" id="mealImage" />
-        <button class="button">Estimate Calories</button>
-    </div>
-
-    <!-- Weight Tracking -->
-    <div class="feature-container">
-        <h3>Weight Tracking</h3>
-        <p>Track your weight</p>
-        <div class="image-container">
-        <img src="images/kilo-takibi.jpg" alt="Weight Tracking" />
+      </div>
+      
+      <!-- Weight Tracking -->
+      <div class="feature-containers">
+        <div class="feature-container">
+          <h3>Weight Tracking</h3>
+          <p>Track your weight</p>
+          <button class="button">Log Weight</button>
         </div>
-        <button class="button">Log Weight</button>
-    </div>
-    </div>
-
+      </div>
+    </section>
 
   </section>
 

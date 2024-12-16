@@ -7,18 +7,6 @@ body {
     display: grid;
 }
 
-/* Wrapper for page content */
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px; /* Sayfa içeriği için maksimum genişlik */
-    margin-left: 20px;  /* Sol boşluk */
-    margin-right: 20px; /* Sağ boşluk */
-    padding: 20px;
-}
-
 /* Navbar styles */
 .navbar {
     background-color: #4CAF50;
@@ -47,63 +35,20 @@ body {
     text-decoration: underline;
 }
 
-/* Welcome and Summary Section */
-.welcome-summary-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px;
-    width: 100%;
-}
-
-.summary {
-    width: 30%;
-}
-
-.avatar-container {
-    width: 15%;
-}
-
-.welcome {
-    width: 45%;
-    text-align: left;
-}
-
-.avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-}
-
-/* Summary Section */
-.card {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin-top: 10px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-/* Main Buttons */
-.buttons-container {
-    text-align: center;
-    margin: 20px;
-}
-
-/* Feature Containers: Water Logs, Today's Meals, Calorie Tracking, Weight Tracking */
-.feature-containers {
+/* Header Container Styles */
+.header-container {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
     width: 91%;
-    gap: 20px; /* Aralarına boşluk eklemek için */
-    padding-left: 100px; /* Sol tarafta boşluk */
-    padding-right: 100px; /* Sağ tarafta boşluk */
+    gap: 20px; 
+    padding-left: 100px; 
+    padding-right: 100px; 
 }
 
-/* Feature Container for individual elements */
+/* Goal Container - Now as a feature-container */
 .feature-container {
-    width: 48%; /* İki div yan yana olacak şekilde */
+    width: 48%; /* Adjusted width */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -115,21 +60,76 @@ body {
     margin-bottom: 10px;
 }
 
-input[type="file"] {
+.goal-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Avatar Container */
+.avatar-container {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #4CAF50;
+}
+
+/* Welcome Container */
+.welcome-container {
+    width: 45%;
+    text-align: left;
+}
+
+.welcome-container h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.welcome-container .greeting {
+    font-size: 18px;
     margin-top: 10px;
 }
 
-/* Contact Us Section */
-#contact {
-    background-color: #fff;
-    padding: 20px;
+/* Feature Containers: Water Logs, Today's Meals, Calorie Tracking, Weight Tracking */
+.feature-containers {
+    display: flex;
+    justify-content: space-between;
     margin: 20px 0;
-    border-radius: 10px;
+    width: 91%;
+    gap: 20px; 
+    padding-left: 100px; 
+    padding-right: 100px; 
 }
 
-/* Button Style for all buttons */
+/* Symptom and Today's Meals Section */
+.symptom-meal-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.symptom-container, .meal-container {
+    width: 48%; 
+}
+
+.symptom-container input, .meal-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Button Styling */
 button {
-    background-color: #4CAF50; /* Yeşil renk */
+    background-color: #4CAF50;
     color: #fff;
     padding: 12px;
     border: none;
@@ -143,30 +143,16 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Weight Tracking Image */
-.feature-container img {
-    width: 50%; /* Resmi %50 küçültme */
-    height: auto; /* Boyut oranını koruyarak yüksekliği otomatik ayarlat */
-    object-fit: contain; /* Görseli düzgün şekilde göstermek için */
-    margin-top: 20px;
-    float: left; /* Resmi sola yaslamak için */
-    margin-right: 20px; /* Resim ile metin arasına boşluk eklemek için */
-}
-
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
-    .welcome-summary-container {
+    .header-container {
         flex-direction: column;
         align-items: center;
     }
 
-    .summary, .welcome {
+    .goal-container, .avatar-container, .welcome-container {
         width: 100%;
-    }
-
-    .avatar-container {
-        width: 30%;
-        margin-top: 10px;
+        margin: 10px 0;
     }
 
     .feature-containers {
@@ -177,14 +163,5 @@ button:hover {
     .feature-container {
         width: 80%;
         margin-bottom: 20px;
-    }
-
-    /* Feature Container for Weight Tracking */
-    .feature-container img {
-        width: 80%; /* Resmi konteynerin genişliğine göre sığdır */
-        height: auto; /* Boyut oranını koruyarak yüksekliği otomatik ayarlat */
-        object-fit: contain; /* Görseli düzgün şekilde göstermek için */
-        margin-top: 20px;
-        float: none; /* Resmin sıfırlanması */
     }
 }
