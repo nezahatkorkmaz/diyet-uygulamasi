@@ -31,6 +31,7 @@
 
   <!-- Feature Section -->
   <section id="feature" class="feature-containers">
+    <!-- Symptom and Meals -->
     <div class="feature-container">
       <h3>Symptom and Today's Meals</h3>
       <div class="symptom-meal-container">
@@ -44,6 +45,22 @@
           <button>Add Meal</button>
         </div>
       </div>
+    </div>
+
+    <!-- Water Tracker -->
+    <div class="feature-container">
+      <h3>Water Logs</h3>
+      <p>Track your daily water intake</p>
+      <p>Current Water Intake: <span id="water-intake">0L</span></p>
+      <button id="add-water">Log 0.5L Water</button>
+    </div>
+
+    <!-- Calorie Tracker -->
+    <div class="feature-container">
+      <h3>Calorie Tracking</h3>
+      <p>Upload your meal image to estimate calories</p>
+      <input type="file" id="mealImage" />
+      <button>Estimate Calories</button>
     </div>
 
     <!-- Weight Tracker -->
@@ -70,7 +87,7 @@
 
   <!-- JavaScript -->
   <script>
-    // Weight Tracker Fonksiyonelliği
+    // Weight Tracker
     const decreaseWeight = document.getElementById("decrease-weight");
     const increaseWeight = document.getElementById("increase-weight");
     const weightValue = document.getElementById("weight-value");
@@ -78,7 +95,7 @@
     const kgButton = document.getElementById("kg");
     const lbButton = document.getElementById("lb");
 
-    let weight = 64.0; // Başlangıç kilosu
+    let weight = 64.0;
     let unit = "KG";
 
     function updateWeight() {
@@ -116,6 +133,16 @@
     });
 
     updateWeight();
+
+    // Water Tracker
+    const waterIntake = document.getElementById("water-intake");
+    const addWater = document.getElementById("add-water");
+
+    let water = 0.0;
+    addWater.addEventListener("click", () => {
+      water += 0.5;
+      waterIntake.innerText = `${water}L`;
+    });
   </script>
 </body>
 </html>

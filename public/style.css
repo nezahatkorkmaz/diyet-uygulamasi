@@ -14,10 +14,9 @@ body {
 
 .navbar ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: center;
+    padding: 0;
 }
 
 .navbar li {
@@ -30,13 +29,9 @@ body {
     font-size: 18px;
 }
 
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-/* Header Arka Plan */
+/* Header */
 .header-background {
-    background: url('https://media.istockphoto.com/id/1457433817/photo/group-of-healthy-food-for-flexitarian-diet.jpg?s=612x612&w=0&k=20&c=v48RE0ZNWpMZOlSp13KdF1yFDmidorO2pZTu2Idmd3M=') center/cover no-repeat;
+    background: url('https://media.istockphoto.com/id/1457433817/photo/group-of-healthy-food-for-flexitarian-diet.jpg?s=612x612&w=0&k=20&c=v48RE0ZNWpMZOlSp13KdF1yFDmidorO2pZTu2Idmd3M=') center/cover;
     height: 300px;
     display: flex;
     justify-content: center;
@@ -52,7 +47,6 @@ body {
 }
 
 .welcome-text h1 {
-    margin: 0;
     font-size: 36px;
     color: #333;
 }
@@ -62,13 +56,13 @@ body {
     color: #555;
 }
 
-/* Feature Container */
+/* Feature Containers */
 .feature-containers {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-    flex-wrap: wrap;
 }
 
 .feature-container {
@@ -76,13 +70,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
     width: 300px;
-}
-
-.feature-container h3 {
-    margin-bottom: 10px;
-    color: #4CAF50;
+    text-align: center;
 }
 
 /* Weight Tracker */
@@ -101,12 +90,6 @@ body {
     width: 50px;
     height: 50px;
     font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.circle-button:hover {
-    background-color: #45a049;
 }
 
 .weight-display {
@@ -118,21 +101,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.weight-display p {
-    font-size: 32px;
-    margin: 0;
-}
-
-.unit-toggle {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #999;
-}
-
-.unit-toggle span {
-    cursor: pointer;
 }
 
 .unit-toggle .active {
