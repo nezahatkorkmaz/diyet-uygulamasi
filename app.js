@@ -1,19 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const sequelize = require("./config"); // config.js'den bağlantıyı çekiyoruz
-const User = require("./models/User"); // User modeli
-const Meal = require("./models/Meal"); // Meal modeli
+const sequelize = require("./config");
+const User = require("./models/User");
+const Meal = require("./models/Meal");
 
 const app = express();
 app.use(bodyParser.json());
 
-// Veritabanı Senkronizasyonu
+// Veritabanı senkronizasyonu
 sequelize
   .sync()
-  .then(() => console.log("Veritabanı senkronizasyonu başarılı."))
-  .catch((err) => console.error("Veritabanı senkronizasyon hatası:", err));
+  .then(() => console.log("Veritabanı senkronizasyonu başarılı"))
+  .catch((err) => console.error("Veritabanı hatası:", err));
 
-// CRUD - Kullanıcılar
+// Kullanıcılar için CRUD işlemleri
 app.get("/users", async (req, res) => {
   try {
     const users = await User.findAll();
@@ -32,7 +32,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// CRUD - Öğünler
+// Öğünler için CRUD işlemleri
 app.get("/meals", async (req, res) => {
   try {
     const meals = await Meal.findAll();
@@ -51,7 +51,4 @@ app.post("/meals", async (req, res) => {
   }
 });
 
-// Sunucu Dinleme
-app.listen(3000, () => {
-  console.log("Sunucu 3000 portunda çalışıyor...");
-});
+module.exports = app;

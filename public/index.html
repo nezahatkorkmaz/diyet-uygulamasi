@@ -1,32 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diyet Uygulaması</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diyet Uygulaması</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Diyet Uygulaması - Kullanıcılar</h1>
-    
-    <!-- Kullanıcı Listesi -->
-    <div>
-        <h2>Kullanıcılar:</h2>
-        <ul id="user-list"></ul>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#recipes">Recipies</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home">
+    <header class="header">
+      <h1>Diyet Uygulaması</h1>
+      <p class="greeting">Hello, Ali Yılmaz! What did you eat today?</p>
+    </header>
+
+    <!-- Main Buttons Section -->
+    <div class="buttons-container">
+      <button class="button meal-button" onclick="addMeal()">Add Meal</button>
+      <button class="button weight-button" onclick="addWeight()">Add Weight</button>
     </div>
 
-    <!-- Yeni Kullanıcı Ekleme Formu -->
-    <div>
-        <h2>Yeni Kullanıcı Ekle</h2>
-        <form id="user-form">
-            <input type="text" id="first_name" placeholder="Ad" required>
-            <input type="text" id="last_name" placeholder="Soyad" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Şifre" required>
-            <button type="submit">Ekle</button>
-        </form>
-    </div>
+    <!-- Summary Data Section -->
+    <section class="summary">
+      <h2>Summary Data</h2>
+      <div class="card">
+        <p>Calories Consumed: <span id="calories-consumed">1200 kcal</span></p>
+        <p>Water Consumption: <span id="water-consumption">2L</span></p>
+        <p>Weight Change: <span id="weight-change">-0.2 kg</span></p>
+      </div>
+    </section>
 
-    <script src="app.js"></script>
+    <!-- Calorie Tracking Section -->
+    <section class="calorie-tracking">
+      <h2>Calorie Tracking</h2>
+      <p>Upload an image of your meal, and we'll estimate the calories for you!</p>
+      <input type="file" id="mealImage" />
+      <button class="button">Estimate Calories</button>
+    </section>
+
+    <!-- Today's Meals Section -->
+    <section class="today-meals">
+      <h2>Today's Meals</h2>
+      <div class="meal-card">
+        <p>Meal: Grilled Turkey Breast with Steamed Asparagus and Brown Rice</p>
+        <button class="button add-to-plan-button">Add to Meal Plan</button>
+      </div>
+    </section>
+
+    <!-- Weight Tracking -->
+    <section class="weight-tracking">
+      <h2>Weight Tracking</h2>
+      <div class="card">
+        <p>Current Weight: <span id="current-weight">78 kg</span></p>
+        <p>Goal Weight: <span id="goal-weight">75 kg</span></p>
+        <button class="button">Track Weight</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>If you have any questions, feel free to reach out!</p>
+  </section>
+
+  <script>
+    // Fetch users and meals
+    function fetchUsers() {
+      fetch('http://localhost:3000/api/users')
+        .then(response => response.json())
+        .then(data => {
+          const userList = document.getElementById('userList');
+          data.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = `${user.first_name} ${user.last_name} - ${user.email}`;
+            userList.appendChild(li);
+          });
+        });
+    }
+
+    function fetchMeals() {
+      fetch('http://localhost:3000/api/meals')
+        .then(response => response.json())
+        .then(data => {
+          const mealList = document.getElementById('mealList');
+          data.forEach(meal => {
+            const li = document.createElement('li');
+            li.textContent = `${meal.meal_name} - ${meal.calories} Kalori`;
+            mealList.appendChild(li);
+          });
+        });
+    }
+
+    // Add meal functionality
+    function addMeal() {
+      // Logic to add meal
+    }
+
+    // Add weight functionality
+    function addWeight() {
+      // Logic to add weight
+    }
+
+    // Fetch users and meals on page load
+    window.onload = function() {
+      fetchUsers();
+      fetchMeals();
+    };
+  </script>
 </body>
 </html>
