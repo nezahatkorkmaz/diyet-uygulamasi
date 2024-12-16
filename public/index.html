@@ -48,19 +48,19 @@
     </div>
 
     <!-- Water Tracker -->
-    <div class="feature-container">
-      <h3>Water Logs</h3>
-      <p>Track your daily water intake</p>
-      <p>Current Water Intake: <span id="water-intake">0L</span></p>
-      <button id="add-water">Log 0.5L Water</button>
-    </div>
-
-    <!-- Calorie Tracker -->
-    <div class="feature-container">
-      <h3>Calorie Tracking</h3>
-      <p>Upload your meal image to estimate calories</p>
-      <input type="file" id="mealImage" />
-      <button>Estimate Calories</button>
+    <div class="feature-container water-tracker">
+      <h3>Water Tracking</h3>
+      <div class="water-circle">
+        <button id="decrease-water" class="circle-button">-</button>
+        <div class="water-display">
+          <img src="https://banner2.cleanpng.com/20231227/pw/transparent-cartoon-glass-water-clear-liquid-clear-glass-with-water-smooth-surface-round-1710954634978.webp" 
+              alt="Water Glass" class="water-icon">
+          <p id="water-amount">0.00</p>
+          <p class="water-unit">L</p>
+        </div>
+        <button id="increase-water" class="circle-button">+</button>
+      </div>
+      <p id="water-progress-text">0.00 / 2L Goal</p>
     </div>
 
     <!-- Weight Tracker -->
@@ -77,6 +77,13 @@
         <button id="increase-weight" class="circle-button">+</button>
       </div>
     </div>
+    <!-- Calorie Tracker -->
+    <div class="feature-container">
+      <h3>Calorie Tracking</h3>
+      <p>Upload your meal image to estimate calories</p>
+      <input type="file" id="mealImage" />
+      <button>Estimate Calories</button>
+    </div>
   </section>
 
   <!-- Contact Us -->
@@ -84,65 +91,6 @@
     <h2>Contact Us</h2>
     <p>If you have any questions, feel free to reach out!</p>
   </section>
-
-  <!-- JavaScript -->
-  <script>
-    // Weight Tracker
-    const decreaseWeight = document.getElementById("decrease-weight");
-    const increaseWeight = document.getElementById("increase-weight");
-    const weightValue = document.getElementById("weight-value");
-
-    const kgButton = document.getElementById("kg");
-    const lbButton = document.getElementById("lb");
-
-    let weight = 64.0;
-    let unit = "KG";
-
-    function updateWeight() {
-      weightValue.innerText = weight.toFixed(1);
-    }
-
-    increaseWeight.addEventListener("click", () => {
-      weight += 0.1;
-      updateWeight();
-    });
-
-    decreaseWeight.addEventListener("click", () => {
-      weight -= 0.1;
-      updateWeight();
-    });
-
-    kgButton.addEventListener("click", () => {
-      if (unit !== "KG") {
-        weight = (weight / 2.205).toFixed(1);
-        unit = "KG";
-        kgButton.classList.add("active");
-        lbButton.classList.remove("active");
-        updateWeight();
-      }
-    });
-
-    lbButton.addEventListener("click", () => {
-      if (unit !== "LB") {
-        weight = (weight * 2.205).toFixed(1);
-        unit = "LB";
-        lbButton.classList.add("active");
-        kgButton.classList.remove("active");
-        updateWeight();
-      }
-    });
-
-    updateWeight();
-
-    // Water Tracker
-    const waterIntake = document.getElementById("water-intake");
-    const addWater = document.getElementById("add-water");
-
-    let water = 0.0;
-    addWater.addEventListener("click", () => {
-      water += 0.5;
-      waterIntake.innerText = `${water}L`;
-    });
-  </script>
+<script src="js/script.js"></script>
 </body>
 </html>
