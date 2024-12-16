@@ -4,105 +4,151 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 8px;
-    margin: 10px 0;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Navbar */
-  .navbar {
+    display: grid;
+}
+
+/* Wrapper for page content */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Sayfa içeriği için maksimum genişlik */
+    margin-left: 20px;  /* Sol boşluk */
+    margin-right: 20px; /* Sağ boşluk */
+    padding: 20px;
+}
+
+/* Navbar styles */
+.navbar {
     background-color: #4CAF50;
     padding: 10px 0;
-  }
-  
-  .navbar ul {
+    width: 100%;
+}
+
+.navbar ul {
     list-style-type: none;
     display: flex;
     justify-content: center;
     padding: 0;
-  }
-  
-  .navbar li {
+}
+
+.navbar li {
     margin: 0 20px;
-  }
-  
-  .navbar a {
+}
+
+.navbar a {
     color: white;
     text-decoration: none;
     font-size: 18px;
-  }
-  
-  .navbar a:hover {
+}
+
+.navbar a:hover {
     text-decoration: underline;
-  }
-  
-  /* Home Section */
-  .header {
-    text-align: center;
+}
+
+/* Welcome and Summary Section */
+.welcome-summary-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 20px;
-  }
-  
-  .greeting {
-    font-size: 18px;
-  }
-  
-  /* Main Buttons */
-  .buttons-container {
-    text-align: center;
-    margin: 20px;
-  }
-  
-  /* Summary Section */
-  .summary {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card {
+    width: 100%;
+}
+
+.summary {
+    width: 30%;
+}
+
+.avatar-container {
+    width: 15%;
+}
+
+.welcome {
+    width: 45%;
+    text-align: left;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+/* Summary Section */
+.card {
     background-color: #f9f9f9;
     padding: 15px;
     margin-top: 10px;
     border-radius: 8px;
     text-align: center;
-  }
-  
-  /* Calorie Tracking Section */
-  .calorie-tracking, .today-meals, .weight-tracking {
+}
+
+/* Main Buttons */
+.buttons-container {
+    text-align: center;
+    margin: 20px;
+}
+/* Feature Containers: Water Logs, Today's Meals, Calorie Tracking, Weight Tracking */
+.feature-containers {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    width: 91%;
+    gap: 20px; /* Aralarına boşluk eklemek için */
+    padding-left: 100px; /* Sol tarafta boşluk */
+    padding-right: 100px; /* Sağ tarafta boşluk */
+}
+
+/* Feature Container for individual elements */
+.feature-container {
+    width: 48%; /* İki div yan yana olacak şekilde */
     background-color: #fff;
     padding: 20px;
-    margin: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  input[type="file"] {
+    text-align: center;
+}
+
+.feature-container h3 {
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
     margin-top: 10px;
-  }
-  
-  /* Contact Us Section */
-  #contact {
+}
+
+/* Contact Us Section */
+#contact {
     background-color: #fff;
     padding: 20px;
-    margin: 20px;
+    margin: 20px 0;
     border-radius: 10px;
-  }
-  
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .welcome-summary-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .summary, .welcome {
+        width: 100%;
+    }
+
+    .avatar-container {
+        width: 30%;
+        margin-top: 10px;
+    }
+
+    .feature-containers {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-container {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
