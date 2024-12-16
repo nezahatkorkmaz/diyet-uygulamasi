@@ -46,43 +46,64 @@
 
     <!-- Feature Containers: Water Logs, Today's Meals, Calorie Tracking, Weight Tracking -->
     <div class="feature-containers">
-        <!-- Water Logs -->
-        <div class="feature-container">
-          <h3>Water Logs</h3>
-          <p>Track your daily water intake</p>
-          <div>
-            <p>Daily Water Target: <span id="water-target">2L</span></p>
-            <p>Current Water Intake: <span id="current-water">0L</span></p>
-            <button class="button" onclick="logWater()">Log Water</button>
-            <p id="water-message"></p>
-          </div>
+    <!-- Water Logs -->
+    <div class="feature-container">
+        <h3>Water Logs</h3>
+        <p>Track your daily water intake</p>
+        <div>
+        <p>Daily Water Target: <span id="water-target">2L</span></p>
+        <p>Current Water Intake: <span id="current-water">0L</span></p>
+        <button class="button" onclick="logWater()">Log Water</button>
+        <p id="water-message"></p>
         </div>
-      
-        <!-- Today's Meals -->
-        <div class="feature-container">
-          <h3>Today's Meals</h3>
-          <p>What did you eat today?</p>
-          <button class="button">Add Meal</button>
+    </div>
+
+    <!-- Today's Meals -->
+    <div class="feature-container">
+        <h3>Today's Meals</h3>
+        <p>What did you eat today?</p>
+        <div>
+        <!-- Meal Input -->
+        <input type="text" id="meal-input" placeholder="Enter meal here" />
+        <button class="button">Add Meal</button>
+
+        <!-- Symptom Filter -->
+        <h4>Symptoms</h4>
+        <select id="symptom-select">
+            <option value="none">Select Symptom</option>
+            <option value="bloating">Bloating</option>
+            <option value="headache">Headache</option>
+            <option value="fatigue">Fatigue</option>
+        </select>
         </div>
-      </div>
-      
-      <!-- Second row -->
-      <div class="feature-containers">
-        <!-- Calorie Tracking -->
-        <div class="feature-container">
-          <h3>Calorie Tracking</h3>
-          <p>Upload your meal image to estimate calories</p>
-          <input type="file" id="mealImage" />
-          <button class="button">Estimate Calories</button>
+    </div>
+    </div>
+
+    <!-- Second row -->
+    <div class="feature-containers">
+    <!-- Calorie Tracking -->
+    <div class="feature-container">
+        <h3>Calorie Tracking</h3>
+        <p>Upload your meal image to estimate calories</p>
+        <div class="image-container">
+        <img src="public/images/kilo-takibi-metre.png" alt="Calorie Tracking" />
         </div>
-      
-        <!-- Weight Tracking -->
-        <div class="feature-container">
-          <h3>Weight Tracking</h3>
-          <p>Track your weight</p>
-          <button class="button">Log Weight</button>
+        <input type="file" id="mealImage" />
+        <button class="button">Estimate Calories</button>
+    </div>
+
+    <!-- Weight Tracking -->
+    <div class="feature-container">
+        <h3>Weight Tracking</h3>
+        <p>Track your weight</p>
+        <div class="image-container">
+        <img src="images/kilo-takibi.jpg" alt="Weight Tracking" />
         </div>
-      </div>      
+        <button class="button">Log Weight</button>
+    </div>
+    </div>
+
+
   </section>
 
   <!-- Contact Us Section -->
@@ -91,26 +112,7 @@
     <p>If you have any questions, feel free to reach out!</p>
   </section>
 
-  <script>
-    // Water Logs Functionality
-    let currentWaterIntake = 0;
-    let dailyWaterTarget = 2; // 2L target
-    const waterMessage = document.getElementById("water-message");
-    const waterTarget = document.getElementById("water-target");
-    const currentWater = document.getElementById("current-water");
-
-    function logWater() {
-      currentWaterIntake += 0.2; // Increase by 200ml (0.2L)
-      currentWater.innerText = `${currentWaterIntake}L`;
-
-      if (currentWaterIntake >= dailyWaterTarget) {
-        waterMessage.innerText = "You have reached your daily water goal!";
-        waterMessage.style.color = "green";
-      } else {
-        waterMessage.innerText = `You have drunk ${currentWaterIntake}L out of ${dailyWaterTarget}L.`;
-        waterMessage.style.color = "black";
-      }
-    }
-  </script>
+  <!-- Link to external JS -->
+  <script src="js/script.js"></script>
 </body>
 </html>
