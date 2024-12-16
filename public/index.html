@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyet Uygulaması</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Diyet Uygulaması - Kullanıcılar</h1>
+    
+    <!-- Kullanıcı Listesi -->
+    <div>
+        <h2>Kullanıcılar:</h2>
+        <ul id="user-list"></ul>
+    </div>
+
+    <!-- Yeni Kullanıcı Ekleme Formu -->
+    <div>
+        <h2>Yeni Kullanıcı Ekle</h2>
+        <form id="user-form">
+            <input type="text" id="first_name" placeholder="Ad" required>
+            <input type="text" id="last_name" placeholder="Soyad" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Şifre" required>
+            <button type="submit">Ekle</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

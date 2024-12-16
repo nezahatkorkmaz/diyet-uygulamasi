@@ -1,0 +1,4 @@
+express
+pg
+sequelize
+body-parser
