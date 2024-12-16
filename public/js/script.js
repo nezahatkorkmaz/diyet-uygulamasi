@@ -42,3 +42,58 @@ function filterSymptoms() {
 
 // Trigger symptom filter function on change
 document.getElementById("symptom-select").addEventListener("change", filterSymptoms);
+
+
+// Kilo artırma ve azaltma butonları
+const decreaseWeight = document.getElementById("decrease-weight");
+const increaseWeight = document.getElementById("increase-weight");
+const weightValue = document.getElementById("weight-value");
+
+// KG/LB birim değişimi
+const kgButton = document.getElementById("kg");
+const lbButton = document.getElementById("lb");
+
+let weight = 64.0; // Başlangıç kilosu
+let unit = "KG";   // Varsayılan birim
+
+// Kilo değerini güncelle
+function updateWeight() {
+  weightValue.innerText = weight.toFixed(1);
+}
+
+// Kilo artırma
+increaseWeight.addEventListener("click", () => {
+  weight += 0.1;
+  updateWeight();
+});
+
+// Kilo azaltma
+decreaseWeight.addEventListener("click", () => {
+  weight -= 0.1;
+  updateWeight();
+});
+
+// Birim değişimi: KG
+kgButton.addEventListener("click", () => {
+  if (unit !== "KG") {
+    weight = (weight / 2.205).toFixed(1); // LB'den KG'ye çevir
+    unit = "KG";
+    kgButton.classList.add("active");
+    lbButton.classList.remove("active");
+    updateWeight();
+  }
+});
+
+// Birim değişimi: LB
+lbButton.addEventListener("click", () => {
+  if (unit !== "LB") {
+    weight = (weight * 2.205).toFixed(1); // KG'den LB'ye çevir
+    unit = "LB";
+    lbButton.classList.add("active");
+    kgButton.classList.remove("active");
+    updateWeight();
+  }
+});
+
+// Sayfa yüklenirken başlangıç değeri
+updateWeight();

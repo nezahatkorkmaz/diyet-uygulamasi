@@ -47,36 +47,19 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 20px 30px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .welcome-text h1 {
     margin: 0;
-    color: #333;
     font-size: 36px;
+    color: #333;
 }
 
 .welcome-text p {
-    color: #555;
     font-size: 18px;
-}
-
-/* Hedefler Bölümü */
-.goals-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: -50px;
-}
-
-.goals-container {
-    width: 400px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border: 2px solid #4CAF50;
+    color: #555;
 }
 
 /* Feature Container */
@@ -98,31 +81,61 @@ body {
 }
 
 .feature-container h3 {
-    color: #4CAF50;
     margin-bottom: 10px;
+    color: #4CAF50;
 }
 
-/* Buttons */
-button {
+/* Weight Tracker */
+.weight-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.circle-button {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 15px;
     border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
+.circle-button:hover {
     background-color: #45a049;
 }
 
-/* Contact Us */
-#contact {
-    text-align: center;
-    padding: 20px;
+.weight-display {
+    background-color: #E5E5E5;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#contact h2 {
-    color: #333;
+.weight-display p {
+    font-size: 32px;
+    margin: 0;
+}
+
+.unit-toggle {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #999;
+}
+
+.unit-toggle span {
+    cursor: pointer;
+}
+
+.unit-toggle .active {
+    color: #4CAF50;
+    font-weight: bold;
 }

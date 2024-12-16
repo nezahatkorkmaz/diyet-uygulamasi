@@ -26,18 +26,6 @@
           <p class="greeting">Hello, Ali Yılmaz! What did you eat today?</p>
         </div>
       </div>
-
-      <!-- Hedefler Container -->
-      <div class="goals-wrapper">
-        <div class="feature-container goals-container">
-          <h3>Hedefler</h3>
-          <div class="goal-card">
-            <p>Calories Consumed: <span id="calories-consumed">1200 kcal</span></p>
-            <p>Water Consumption: <span id="water-consumption">2L</span></p>
-            <p>Weight Change: <span id="weight-change">-0.2 kg</span></p>
-          </div>
-        </div>
-      </div>
     </header>
   </section>
 
@@ -58,16 +46,19 @@
       </div>
     </div>
 
-    <div class="feature-container">
-      <h3>Water Logs</h3>
-      <p>Track your daily water intake</p>
-      <button>Log Water</button>
-    </div>
-
-    <div class="feature-container">
+    <!-- Weight Tracker -->
+    <div class="feature-container weight-tracker">
       <h3>Weight Tracking</h3>
-      <p>Track your weight</p>
-      <button>Log Weight</button>
+      <div class="weight-circle">
+        <button id="decrease-weight" class="circle-button">-</button>
+        <div class="weight-display">
+          <p id="weight-value">64.0</p>
+          <div class="unit-toggle">
+            <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+          </div>
+        </div>
+        <button id="increase-weight" class="circle-button">+</button>
+      </div>
     </div>
   </section>
 
@@ -76,5 +67,55 @@
     <h2>Contact Us</h2>
     <p>If you have any questions, feel free to reach out!</p>
   </section>
+
+  <!-- JavaScript -->
+  <script>
+    // Weight Tracker Fonksiyonelliği
+    const decreaseWeight = document.getElementById("decrease-weight");
+    const increaseWeight = document.getElementById("increase-weight");
+    const weightValue = document.getElementById("weight-value");
+
+    const kgButton = document.getElementById("kg");
+    const lbButton = document.getElementById("lb");
+
+    let weight = 64.0; // Başlangıç kilosu
+    let unit = "KG";
+
+    function updateWeight() {
+      weightValue.innerText = weight.toFixed(1);
+    }
+
+    increaseWeight.addEventListener("click", () => {
+      weight += 0.1;
+      updateWeight();
+    });
+
+    decreaseWeight.addEventListener("click", () => {
+      weight -= 0.1;
+      updateWeight();
+    });
+
+    kgButton.addEventListener("click", () => {
+      if (unit !== "KG") {
+        weight = (weight / 2.205).toFixed(1);
+        unit = "KG";
+        kgButton.classList.add("active");
+        lbButton.classList.remove("active");
+        updateWeight();
+      }
+    });
+
+    lbButton.addEventListener("click", () => {
+      if (unit !== "LB") {
+        weight = (weight * 2.205).toFixed(1);
+        unit = "LB";
+        lbButton.classList.add("active");
+        kgButton.classList.remove("active");
+        updateWeight();
+      }
+    });
+
+    updateWeight();
+  </script>
 </body>
 </html>
