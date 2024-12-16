@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyet Uygulaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>DİYET UYGULAMASI</h1>
+        <p>Hello, Ali Yılmaz! What did you eat today?</p>
+    </div>
+
+    <div class="container">
+        <form method="POST">
+            <div>
+                <h3>Symptom and Today's Meals</h3>
+                <input type="text" name="symptom" placeholder="Enter symptom">
+                <input type="text" name="meal" placeholder="Today's Meal">
+                <button type="submit">Add Meal</button>
+            </div>
+            <div>
+                <h3>Water Logs</h3>
+                <input type="number" step="0.5" name="water_log" placeholder="Log Water Intake">
+                <button type="submit">Log Water</button>
+            </div>
+            <div>
+                <h3>Weight Tracking</h3>
+                <input type="number" step="0.1" name="weight" placeholder="Enter Weight">
+                <button type="submit">Update Weight</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
