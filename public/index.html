@@ -5,65 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diyet Uygulaması</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .category-title {
-      font-weight: bold;
-      margin: 10px 0;
-      color: #555;
-    }
-
-    .symptom-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .symptom-button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      color: white;
-      font-size: 14px;
-    }
-
-    .digestion { background-color: #FF7043; }   /* Sindirim Sistemi: Turuncu */
-    .skin { background-color: #42A5F5; }       /* Deri: Mavi */
-    .respiratory { background-color: #66BB6A; }/* Solunum Sistemi: Yeşil */
-    .nerve { background-color: #AB47BC; }      /* Sinir Sistemi: Mor */
-    .muscle { background-color: #FFA726; }     /* Kas ve Eklem: Açık Turuncu */
-    .other { background-color: #EC407A; }      /* Diğer: Pembe */
-    .active { border: 2px solid #333; transform: scale(1.05); }
-
-    /* 3 Bölümü Yan Yana Getir */
-    .feature-container.full-width {
-      display: flex; /* Yan yana yerleşim */
-      justify-content: space-between; /* Aralarında boşluk */
-      gap: 20px; /* Bölümler arası boşluk */
-      align-items: flex-start; /* Üst hizalama */
-    }
-
-    /* Her Bölümün Genişlik ve Stili */
-    .symptom-container,
-    .selected-symptoms-container,
-    .meal-container {
-      flex: 1; /* Eşit genişlik */
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Responsive Ayar: Küçük Ekranlarda Alt Alta Diz */
-    @media (max-width: 768px) {
-      .feature-container.full-width {
-        flex-direction: column; /* Küçük ekranlarda alt alta diz */
-      }
-    }
-</style>
-
-</head>
-<body>
     <!-- Navbar -->
     <nav class="navbar">
       <ul>
@@ -83,79 +24,135 @@
       </div>
     </header>
   </section>
-  <section id="symptoms-meals" class="feature-containers">
-    <div class="feature-container full-width" style="display: flex; gap: 20px;">
-      <!-- Sol Taraf: Semptom Seçme -->
-      <div class="symptom-container" style="flex: 1; padding: 15px; background-color: #fafafa; border-radius: 10px; border: 1px solid #ddd;">
+  <style>
+    /* Genel Stiller */
+    /* Genel Stiller */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.feature-containers {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Full Width Feature Container */
+.feature-container.full-width {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+/* İlk Konteyner İçindeki Bölümler */
+.symptom-container,
+.selected-symptoms-container,
+.meal-container {
+  flex: 1;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Alttaki Üç Feature Container */
+.feature-container {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+/* 3 Feature Container Yan Yana Dizilim */
+.three-containers {
+  display: flex;
+  gap: 20px;
+}
+
+.three-containers .feature-container {
+  flex: 1; /* Üçü eşit genişlikte */
+}
+
+/* Responsive Ayar: Küçük Ekranlarda Alt Alta Diz */
+@media (max-width: 768px) {
+  .feature-container.full-width {
+    flex-direction: column;
+  }
+
+  .three-containers {
+    flex-direction: column;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Feature Containers -->
+  <section class="feature-containers">
+    <!-- Tüm Satırı Kaplayan Konteyner -->
+    <div class="feature-container full-width">
+      <!-- Sol Bölüm: Symptom Selection -->
+      <div class="symptom-container">
         <h3>Symptom Selection</h3>
-  
-        <!-- Sindirim Sistemi -->
-      <h5 class="category-title">Sindirim Sistemi Semptomları</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button digestion" data-symptom="Şişkinlik">Şişkinlik</button>
-        <button class="symptom-button digestion" data-symptom="Karın Ağrısı">Karın Ağrısı</button>
-        <button class="symptom-button digestion" data-symptom="Gaz">Gaz</button>
-        <button class="symptom-button digestion" data-symptom="İshal">İshal</button>
-        <button class="symptom-button digestion" data-symptom="Kabızlık">Kabızlık</button>
-        <button class="symptom-button digestion" data-symptom="Mide Bulantısı">Mide Bulantısı</button>
-        <button class="symptom-button digestion" data-symptom="Reflü veya Hazımsızlık">Reflü veya Hazımsızlık</button>
+        <div class="symptom-buttons">
+          <button class="symptom-button digestion" data-symptom="Şişkinlik">Şişkinlik</button>
+          <button class="symptom-button digestion" data-symptom="Karın Ağrısı">Karın Ağrısı</button>
+          <button class="symptom-button digestion" data-symptom="Gaz">Gaz</button>
+          <button class="symptom-button digestion" data-symptom="İshal">İshal</button>
+          <button class="symptom-button digestion" data-symptom="Kabızlık">Kabızlık</button>
+          <button class="symptom-button digestion" data-symptom="Mide Bulantısı">Mide Bulantısı</button>
+          <button class="symptom-button digestion" data-symptom="Reflü veya Hazımsızlık">Reflü veya Hazımsızlık</button>
+
+          <button class="symptom-button skin" data-symptom="Kaşıntı">Kaşıntı</button>
+          <button class="symptom-button skin" data-symptom="Kızarıklık">Kızarıklık</button>
+          <button class="symptom-button skin" data-symptom="Kurdeşen">Kurdeşen</button>
+          <button class="symptom-button skin" data-symptom="Egzama">Egzama</button>
+          <button class="symptom-button skin" data-symptom="Deride Şişlik">Deride Şişlik</button>
+
+          <button class="symptom-button respiratory" data-symptom="Burun Akıntısı veya Tıkanıklığı">Burun Akıntısı veya Tıkanıklığı</button>
+          <button class="symptom-button respiratory" data-symptom="Hapşırma">Hapşırma</button>
+          <button class="symptom-button respiratory" data-symptom="Nefes Darlığı">Nefes Darlığı</button>
+          <button class="symptom-button respiratory" data-symptom="Boğaz Kaşıntısı">Boğaz Kaşıntısı</button>
+
+          <button class="symptom-button nerve" data-symptom="Baş Ağrısı">Baş Ağrısı</button>
+          <button class="symptom-button nerve" data-symptom="Migren">Migren</button>
+          <button class="symptom-button nerve" data-symptom="Halsizlik veya Yorgunluk">Halsizlik veya Yorgunluk</button>
+          <button class="symptom-button nerve" data-symptom="Konsantrasyon Bozukluğu">Konsantrasyon Bozukluğu</button>
+          <button class="symptom-button nerve" data-symptom="Sersemlik Hissi">Sersemlik Hissi</button>
+
+          <button class="symptom-button muscle" data-symptom="Eklem Ağrıları">Eklem Ağrıları</button>
+          <button class="symptom-button muscle" data-symptom="Kas Ağrıları">Kas Ağrıları</button>
+          <button class="symptom-button muscle" data-symptom="Kas Güçsüzlüğü">Kas Güçsüzlüğü</button>
+
+          <button class="symptom-button other" data-symptom="Kalp Çarpıntısı">Kalp Çarpıntısı</button>
+          <button class="symptom-button other" data-symptom="Uyku Bozuklukları">Uyku Bozuklukları</button>
+          <button class="symptom-button other" data-symptom="Ağız veya Boğaz Şişmesi">Ağız veya Boğaz Şişmesi</button>
+          <button class="symptom-button other" data-symptom="Kilo Artışı veya Kilo Kaybı">Kilo Artışı veya Kilo Kaybı</button>
+          <button class="symptom-button other" data-symptom="Gözlerde Kaşıntı veya Kızarıklık">Gözlerde Kaşıntı veya Kızarıklık</button>
+
+        </div>
       </div>
 
-      <!-- Deri Semptomları -->
-      <h5 class="category-title">Deri Semptomları</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button skin" data-symptom="Kaşıntı">Kaşıntı</button>
-        <button class="symptom-button skin" data-symptom="Kızarıklık">Kızarıklık</button>
-        <button class="symptom-button skin" data-symptom="Kurdeşen">Kurdeşen</button>
-        <button class="symptom-button skin" data-symptom="Egzama">Egzama</button>
-        <button class="symptom-button skin" data-symptom="Deride Şişlik">Deride Şişlik</button>
-      </div>
-
-      <!-- Solunum Sistemi -->
-      <h5 class="category-title">Solunum Sistemi Semptomları</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button respiratory" data-symptom="Burun Akıntısı veya Tıkanıklığı">Burun Akıntısı veya Tıkanıklığı</button>
-        <button class="symptom-button respiratory" data-symptom="Hapşırma">Hapşırma</button>
-        <button class="symptom-button respiratory" data-symptom="Nefes Darlığı">Nefes Darlığı</button>
-        <button class="symptom-button respiratory" data-symptom="Boğaz Kaşıntısı">Boğaz Kaşıntısı</button>
-      </div>
-
-      <!-- Sinir Sistemi -->
-      <h5 class="category-title">Sinir Sistemi Semptomları</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button nerve" data-symptom="Baş Ağrısı">Baş Ağrısı</button>
-        <button class="symptom-button nerve" data-symptom="Migren">Migren</button>
-        <button class="symptom-button nerve" data-symptom="Halsizlik veya Yorgunluk">Halsizlik veya Yorgunluk</button>
-        <button class="symptom-button nerve" data-symptom="Konsantrasyon Bozukluğu">Konsantrasyon Bozukluğu</button>
-        <button class="symptom-button nerve" data-symptom="Sersemlik Hissi">Sersemlik Hissi</button>
-      </div>
-
-      <!-- Kas ve Eklem Semptomları -->
-      <h5 class="category-title">Kas ve Eklem Semptomları</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button muscle" data-symptom="Eklem Ağrıları">Eklem Ağrıları</button>
-        <button class="symptom-button muscle" data-symptom="Kas Ağrıları">Kas Ağrıları</button>
-        <button class="symptom-button muscle" data-symptom="Kas Güçsüzlüğü">Kas Güçsüzlüğü</button>
-      </div>
-
-      <!-- Diğer Semptomlar -->
-      <h5 class="category-title">Diğer Semptomlar</h5>
-      <div class="symptom-buttons">
-        <button class="symptom-button other" data-symptom="Kalp Çarpıntısı">Kalp Çarpıntısı</button>
-        <button class="symptom-button other" data-symptom="Uyku Bozuklukları">Uyku Bozuklukları</button>
-        <button class="symptom-button other" data-symptom="Ağız veya Boğaz Şişmesi">Ağız veya Boğaz Şişmesi</button>
-        <button class="symptom-button other" data-symptom="Kilo Artışı veya Kilo Kaybı">Kilo Artışı veya Kilo Kaybı</button>
-        <button class="symptom-button other" data-symptom="Gözlerde Kaşıntı veya Kızarıklık">Gözlerde Kaşıntı veya Kızarıklık</button>
-      </div>
-  
-      <!-- Orta Bölüm: Bugünün Seçilen Semptomları -->
-      <div class="selected-symptoms-container" style="flex: 1; padding: 15px; background-color: #e8f5e9; border-radius: 10px; border: 1px solid #ddd;">
+      <!-- Orta Bölüm: Seçilen Semptomlar -->
+      <div class="selected-symptoms-container">
         <h3>Today's Selected Symptoms</h3>
         <ul id="selected-symptoms" style="list-style-type: none; padding: 0;"></ul>
       </div>
-  
-      <!-- Sağ Taraf: Bugünün Yemekleri -->
-      <div class="meal-container" style="flex: 1; padding: 15px; background-color: #fce4ec; border-radius: 10px; border: 1px solid #ddd;">
+
+      <!-- Sağ Bölüm: Bugünün Yemekleri -->
+      <div class="meal-container">
         <h3>Today's Meals</h3>
         <input type="text" id="meal-input" placeholder="Enter meal name" style="width: 100%; padding: 5px; margin-bottom: 10px;" />
         <button id="add-meal-button" style="padding: 5px 10px;">Add Meal</button>
@@ -163,7 +160,6 @@
       </div>
     </div>
   </section>
-  
 
 <script>
   const selectedSymptoms = [];
@@ -190,7 +186,8 @@
       ul.appendChild(li);
     });
   }
-  // Today's Meals: CRUD İşlemleri
+
+  // Bugünün Yemekleri: CRUD İşlemleri
   document.getElementById("add-meal-button").addEventListener("click", () => {
     const mealInput = document.getElementById("meal-input");
     const mealName = mealInput.value.trim();
@@ -210,45 +207,52 @@
     }
   });
 </script>
-</body>
-</html>  
-    <!-- Diğer Feature Container'lar -->
-    <div class="feature-container water-tracker">
-      <h3>Water Tracking</h3>
-      <div class="water-circle">
-        <button id="decrease-water" class="circle-button">-</button>
-        <div class="water-display">
-          <img src="https://banner2.cleanpng.com/20231227/pw/transparent-cartoon-glass-water-clear-liquid-clear-glass-with-water-smooth-surface-round-1710954634978.webp" 
-              alt="Water Glass" class="water-icon">
-          <p id="water-amount">0.00</p>
-          <p class="water-unit">L</p>
-        </div>
-        <button id="increase-water" class="circle-button">+</button>
-      </div>
-      <p id="water-progress-text">0.00 / 2L Goal</p>
-    </div>
 
-    <!-- Weight Tracker -->
-    <div class="feature-container weight-tracker">
-      <h3>Weight Tracking</h3>
-      <div class="weight-circle">
-        <button id="decrease-weight" class="circle-button">-</button>
-        <div class="weight-display">
-          <p id="weight-value">64.0</p>
-          <div class="unit-toggle">
-            <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+</body>
+</html>
+
+    <!-- Diğer Feature Container'lar -->
+      <!-- Altındaki 3 Container -->
+    <div class="three-containers">
+      <div class="feature-container">
+        <div class="feature-container water-tracker">
+          <h3>Water Tracking</h3>
+          <div class="water-circle">
+            <button id="decrease-water" class="circle-button">-</button>
+            <div class="water-display">
+              <img src="https://banner2.cleanpng.com/20231227/pw/transparent-cartoon-glass-water-clear-liquid-clear-glass-with-water-smooth-surface-round-1710954634978.webp" 
+                  alt="Water Glass" class="water-icon">
+              <p id="water-amount">0.00</p>
+              <p class="water-unit">L</p>
+            </div>
+            <button id="increase-water" class="circle-button">+</button>
+          </div>
+          <p id="water-progress-text">0.00 / 2L Goal</p>
+        </div>
+      </div>
+      <div class="feature-container">
+        <div class="feature-container weight-tracker">
+          <h3>Weight Tracking</h3>
+          <div class="weight-circle">
+            <button id="decrease-weight" class="circle-button">-</button>
+            <div class="weight-display">
+              <p id="weight-value">64.0</p>
+              <div class="unit-toggle">
+                <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+              </div>
+            </div>
+            <button id="increase-weight" class="circle-button">+</button>
           </div>
         </div>
-        <button id="increase-weight" class="circle-button">+</button>
       </div>
-    </div>
-
-    <!-- Calorie Tracker -->
-    <div class="feature-container">
-      <h3>Calorie Tracking</h3>
-      <p>Upload your meal image to estimate calories</p>
-      <input type="file" id="mealImage" />
-      <button>Estimate Calories</button>
+      <div class="feature-container">
+        <div class="feature-container">
+          <h3>Calorie Tracking</h3>
+          <p>Upload your meal image to estimate calories</p>
+          <input type="file" id="mealImage" />
+          <button>Estimate Calories</button>
+        </div>
+      </div>
     </div>
   </section>
 
