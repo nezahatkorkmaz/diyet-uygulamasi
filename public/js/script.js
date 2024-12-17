@@ -99,3 +99,73 @@ decreaseWater.addEventListener("click", () => {
 });
 
 updateWater(); // Sayfa yüklenirken su miktarı başlatılır.
+
+document.getElementById("submit-selected-symptoms").addEventListener("click", async () => {
+  const selectedSymptoms = [];
+  document.querySelectorAll(".symptom-button.active").forEach(button => {
+    selectedSymptoms.push(button.getAttribute("data-symptom"));
+  });
+
+  if (selectedSymptoms.length > 0) {
+    const response = await fetch('/api/daily-symptoms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: 1, // Örnek kullanıcı ID
+        symptoms: selectedSymptoms,
+        logged_at: new Date().toISOString().split('T')[0] // Bugünün tarihi
+      })
+    });
+
+    const result = await response.json();
+    alert(result.message || result.error);
+  } else {
+    alert("Lütfen en az bir semptom seçiniz.");
+  }
+});
+
+// Semptomları aktif/pasif yap
+document.querySelectorAll(".symptom-button").forEach(button => {
+  button.addEventListener("click", () => {
+    button.classList.toggle("active");
+  });
+});
+
+// Yemek ekleme işlemi
+const mealInput = document.getElementById('meal-input');
+const addMealButton = document.getElementById('add-meal-button');
+const mealList = document.getElementById('meal-list');
+
+addMealButton.addEventListener('click', () => {
+  const meal = mealInput.value.trim();
+  if (meal) {
+    const li = document.createElement('li');
+    li.textContent = meal;
+    mealList.appendChild(li);
+    mealInput.value = '';
+  }
+});
+
+document.getElementById("submit-selected-symptoms").addEventListener("click", async () => {
+  const selectedSymptoms = [];
+  document.querySelectorAll(".symptom-button.active").forEach(button => {
+    selectedSymptoms.push(button.getAttribute("data-symptom"));
+  });
+
+  if (selectedSymptoms.length > 0) {
+    const response = await fetch('/api/daily-symptoms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: 1, // Örnek kullanıcı ID
+        symptoms: selectedSymptoms,
+        logged_at: new Date().toISOString().split('T')[0] // Bugünün tarihi
+      })
+    });
+
+    const result = await response.json();
+    alert(result.message || result.error);
+  } else {
+    alert("Lütfen en az bir semptom seçiniz.");
+  }
+});
