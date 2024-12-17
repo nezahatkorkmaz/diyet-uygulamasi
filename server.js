@@ -1,83 +1,109 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors'); // CORS hatalarını önlemek için
-const { Pool } = require('pg'); // PostgreSQL bağlantısı için
+const express = require("express");
+const path = require("path");
+const cors = require("cors");
+const { Sequelize, DataTypes } = require("sequelize");
+
+// PostgreSQL Veritabanı Bağlantısı
+const sequelize = new Sequelize("diyet-uygulamasi", "postgres", "yeni_sifre", {
+  host: "localhost",
+  dialect: "postgres",
+});
+
+sequelize
+  .authenticate()
+  .then(() => console.log("Veritabanı bağlantısı başarılı."))
+  .catch((err) => console.error("Veritabanı bağlantı hatası:", err));
+
+// Modeller
+const User = sequelize.define("User", {
+  firstName: { type: DataTypes.STRING, allowNull: false },
+  lastName: { type: DataTypes.STRING, allowNull: false },
+  email: { type: DataTypes.STRING, allowNull: false, unique: true },
+  password: { type: DataTypes.STRING, allowNull: false },
+});
+
+const Meal = sequelize.define("Meal", {
+  mealName: { type: DataTypes.STRING, allowNull: false },
+  calories: { type: DataTypes.FLOAT, allowNull: true },
+});
+
+const Recipe = sequelize.define("Recipe", {
+  name: { type: DataTypes.STRING, allowNull: false },
+  description: { type: DataTypes.TEXT },
+  image_url: { type: DataTypes.STRING },
+});
+
+const Symptom = sequelize.define("Symptom", {
+  user_id: { type: DataTypes.INTEGER },
+  symptom_description: { type: DataTypes.STRING },
+  logged_at: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
+});
+
+// Sunucu Ayarları
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public"))); // Public klasörünü statik servis et
 
-// Middleware
-app.use(cors()); // React uygulamasıyla iletişim için CORS ayarı
-app.use(express.json()); // JSON verilerini almak için
-app.use(express.urlencoded({ extended: true })); // URL-encoded verileri almak için
+// Veritabanı Senkronizasyonu
+sequelize
+  .sync()
+  .then(() => console.log("Veritabanı senkronize edildi."))
+  .catch((err) => console.error("Veritabanı senkronizasyon hatası:", err));
 
-// Static dosyaları servis et (React frontend dahil)
-app.use(express.static(path.join(__dirname, 'public')));
+// API Endpoint'leri
 
-// PostgreSQL bağlantısı
-const pool = new Pool({
-  user: 'postgres',       // PostgreSQL kullanıcı adı
-  host: 'localhost',      // Veritabanı sunucu adresi
-  database: 'diyet_db',   // Veritabanı adı
-  password: 'password',   // PostgreSQL şifre
-  port: 5432,             // PostgreSQL portu
-});
-
-// API Routes
-// Semptom Ekleme Endpoint'i
-app.post('/api/symptoms', async (req, res) => {
-  const { user_id, meal_id, symptom_description } = req.body;
-
+// Semptom Ekle
+app.post("/api/symptoms", async (req, res) => {
+  const { userId, symptomDescription } = req.body;
   try {
-    await pool.query(
-      'INSERT INTO symptoms (user_id, meal_id, symptom_description) VALUES ($1, $2, $3)',
-      [user_id, meal_id, symptom_description]
-    );
-    res.status(201).json({ message: 'Semptom başarıyla eklendi!' });
+    const symptom = await Symptom.create({
+      user_id: userId,
+      symptom_description: symptomDescription,
+    });
+    res.status(201).json(symptom);
   } catch (err) {
-    console.error('Semptom eklerken hata:', err.message);
-    res.status(500).json({ error: 'Semptom eklenirken bir hata oluştu!' });
+    console.error("Semptom eklerken hata:", err.message);
+    res.status(500).json({ error: "Semptom eklenirken hata oluştu." });
   }
 });
 
-// Yemek Ekleme Endpoint'i
-app.post('/api/meals', async (req, res) => {
-  const { meal_name, calories } = req.body;
-
+// Tarifleri Getir
+app.get("/api/recipes", async (req, res) => {
   try {
-    await pool.query(
-      'INSERT INTO meals (meal_name, calories) VALUES ($1, $2)',
-      [meal_name, calories]
-    );
-    res.status(201).json({ message: 'Yemek başarıyla eklendi!' });
+    const recipes = await Recipe.findAll();
+    res.json(recipes);
   } catch (err) {
-    console.error('Yemek eklerken hata:', err.message);
-    res.status(500).json({ error: 'Yemek eklenirken bir hata oluştu!' });
+    console.error("Tarifler çekilirken hata:", err.message);
+    res.status(500).json({ error: "Tarifler çekilirken hata oluştu." });
   }
 });
 
-// React frontend için wildcard route
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Tarif Ekle (Opsiyonel)
+app.post("/api/recipes", async (req, res) => {
+  const { name, description, image_url } = req.body;
+  try {
+    const recipe = await Recipe.create({ name, description, image_url });
+    res.status(201).json(recipe);
+  } catch (err) {
+    console.error("Tarif eklenirken hata:", err.message);
+    res.status(500).json({ error: "Tarif eklenirken hata oluştu." });
+  }
 });
 
-// Sunucu başlat
+// recipes.html Sayfasını Servis Et
+app.get("/recipes.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "recipes.html"));
+});
+
+// Diğer Tüm İstekler: Frontend'e Yönlendirme
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Sunucu Başlat
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Sunucu http://localhost:${PORT} adresinde çalışıyor`);
-});
-
-app.post('/api/daily-symptoms', async (req, res) => {
-  const { user_id, symptoms, logged_at } = req.body;
-
-  try {
-    for (const symptom of symptoms) {
-      await pool.query(
-        'INSERT INTO symptoms (user_id, symptom_description, logged_at) VALUES ($1, $2, $3)',
-        [user_id, symptom, logged_at]
-      );
-    }
-    res.status(201).json({ message: 'Bugünün semptomları başarıyla kaydedildi!' });
-  } catch (err) {
-    console.error('Semptom kaydı hatası:', err.message);
-    res.status(500).json({ error: 'Semptomlar kaydedilirken bir hata oluştu.' });
-  }
+  console.log(`Sunucu http://localhost:${PORT} üzerinde çalışıyor.`);
 });

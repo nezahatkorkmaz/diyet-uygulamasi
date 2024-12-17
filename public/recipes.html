@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meals - Recipes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Navbar Stili */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background-color: #333;
+      padding: 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Genel Stiller */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Tarifi Kartları */
+    .recipe-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      width: 220px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(113, 206, 25, 0.1);
+      text-align: center;
+    }
+
+    .recipe-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    #recipes-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* Form Stili */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    form input, form textarea, form button {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="/symptoms">Symptoms</a>
+    <a href="/recipes">Meals</a>
+    <li><a href="account.html">My Account</a></li>
+  </nav>
+
+  <h1>Meals and Recipes</h1>
+
+  <!-- Tarifleri Listeleme Alanı -->
+  <div id="recipes-container"></div>
+
+  <!-- Yeni Tarif Ekleme Formu -->
+  <form id="add-recipe-form">
+    <h3>Add New Recipe</h3>
+    <input type="text" id="recipe-name" placeholder="Recipe Name" required>
+    <textarea id="recipe-description" placeholder="Description" rows="3" required></textarea>
+    <input type="url" id="recipe-image-url" placeholder="Image URL" required>
+    <button type="submit">Add Recipe</button>
+  </form>
+
+  <script>
+    const container = document.getElementById('recipes-container');
+    const addRecipeForm = document.getElementById('add-recipe-form');
+
+    // Tarifleri Backend'den Çekme
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch('/api/recipes');
+        const data = await response.json();
+        displayRecipes(data);
+      } catch (err) {
+        console.error('Error fetching recipes:', err);
+      }
+    };
+
+    // Tarifleri Görüntüleme
+    const displayRecipes = (recipes) => {
+      container.innerHTML = ''; // Önce mevcut listeyi temizle
+      recipes.forEach(recipe => {
+        const recipeCard = `
+          <div class="recipe-card">
+            <img src="${recipe.image_url}" alt="${recipe.name}">
+            <h3>${recipe.name}</h3>
+            <p>${recipe.description}</p>
+            <button onclick="deleteRecipe(${recipe.id})">Delete</button>
+          </div>
+        `;
+        container.innerHTML += recipeCard;
+      });
+    };
+
+    // Yeni Tarif Ekleme
+    addRecipeForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('recipe-name').value;
+      const description = document.getElementById('recipe-description').value;
+      const imageUrl = document.getElementById('recipe-image-url').value;
+
+      try {
+        await fetch('/api/recipes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, description, image_url: imageUrl }),
+        });
+        addRecipeForm.reset();
+        fetchRecipes(); // Sayfayı güncelle
+      } catch (err) {
+        console.error('Error adding recipe:', err);
+      }
+    });
+
+    // Tarif Silme
+    const deleteRecipe = async (id) => {
+      try {
+        await fetch(`/api/recipes/${id}`, { method: 'DELETE' });
+        fetchRecipes(); // Sayfayı güncelle
+      } catch (err) {
+        console.error('Error deleting recipe:', err);
+      }
+    };
+
+    // Sayfa Yüklendiğinde Tarifleri Getir
+    fetchRecipes();
+  </script>
+</body>
+</html>

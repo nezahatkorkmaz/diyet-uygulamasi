@@ -10,7 +10,9 @@
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#symptoms">Symptoms</a></li>
-        <li><a href="#meals">Meals</a></li>
+        <li><a href="recipes.html">Meals</a>
+        <li><a href="account.html">My Account</a></li>
+        </li>
       </ul>
     </nav>
     <!-- Home Section -->
@@ -71,7 +73,7 @@ body {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 50px;
   text-align: center;
 }
 
@@ -151,7 +153,7 @@ body {
         <ul id="selected-symptoms" style="list-style-type: none; padding: 0;"></ul>
       </div>
 
-      <<!-- Sağ Bölüm: Bugünün Yemekleri -->
+      <!-- Sağ Bölüm: Bugünün Yemekleri -->
 <div class="meal-container">
   <h3>Today's Meals</h3>
   <input type="text" id="meal-input" placeholder="Enter meal name" style="width: 100%; padding: 5px; margin-bottom: 10px;" />
@@ -276,12 +278,11 @@ body {
       <!-- Altındaki 3 Container -->
     <div class="three-containers">
       <div class="feature-container">
-        <div class="feature-container water-tracker">
           <h3>Water Tracking</h3>
           <div class="water-circle">
             <button id="decrease-water" class="circle-button">-</button>
             <div class="water-display">
-              <img src="https://banner2.cleanpng.com/20231227/pw/transparent-cartoon-glass-water-clear-liquid-clear-glass-with-water-smooth-surface-round-1710954634978.webp" 
+              <img src="https://clipart.world/wp-content/uploads/2021/05/Water-Bottle-clipart-transparent-background.png" 
                   alt="Water Glass" class="water-icon">
               <p id="water-amount">0.00</p>
               <p class="water-unit">L</p>
@@ -289,33 +290,108 @@ body {
             <button id="increase-water" class="circle-button">+</button>
           </div>
           <p id="water-progress-text">0.00 / 2L Goal</p>
-        </div>
       </div>
       <div class="feature-container">
-        <div class="feature-container weight-tracker">
           <h3>Weight Tracking</h3>
           <div class="weight-circle">
             <button id="decrease-weight" class="circle-button">-</button>
             <div class="weight-display">
-              <p id="weight-value">64.0</p>
-              <div class="unit-toggle">
+              <img src="https://w1.pngwing.com/pngs/368/341/png-transparent-measuring-scales-yellow-cartoon-animation-human-body-weight-balans-steelyard-balance-line-area-thumbnail.png" 
+                  alt="tarti" class="water-icon">
+                <p id="weight-value">64.0</p>
+                <div class="unit-toggle">
                 <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
               </div>
             </div>
             <button id="increase-weight" class="circle-button">+</button>
-          </div>
         </div>
       </div>
       <div class="feature-container">
-        <div class="feature-container">
           <h3>Calorie Tracking</h3>
           <p>Upload your meal image to estimate calories</p>
           <input type="file" id="mealImage" />
           <button>Estimate Calories</button>
-        </div>
       </div>
     </div>
   </section>
+<!-- Tarifler Konteyneri -->
+<div id="recipes-container" style="margin-top: 50px;">
+  <h2 style="text-align: center;">Meal Recipes</h2>
+  <!-- Arama Çubuğu -->
+  <input 
+    type="text" 
+    id="recipe-search" 
+    placeholder="Search recipes..." 
+    style="
+      display: block; 
+      margin: 0 auto 20px auto; 
+      padding: 10px; 
+      width: 50%; 
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+      font-size: 16px;
+    "
+  />
+
+  <div 
+    id="recipes-list" 
+    style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('recipe-search');
+    const recipesList = document.getElementById('recipes-list');
+    let recipesData = []; // Tüm tariflerin tutulacağı dizi
+
+    // Tarifleri API'den çek
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch('/api/recipes');
+        recipesData = await response.json(); // Tüm tarifleri kaydet
+        displayRecipes(recipesData);
+      } catch (err) {
+        console.error('Tarifler yüklenirken hata oluştu:', err);
+      }
+    };
+
+    // Tarifleri ekranda göster
+    const displayRecipes = (recipes) => {
+      recipesList.innerHTML = ''; // Mevcut tarifleri temizle
+      recipes.forEach(recipe => {
+        const recipeCard = `
+          <div style="
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+            padding: 15px; 
+            width: 250px; 
+            text-align: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          ">
+            <img src="${recipe.image_url}" alt="${recipe.name}" style="width: 100%; border-radius: 5px;">
+            <h3>${recipe.name}</h3>
+            <p>${recipe.description}</p>
+          </div>
+        `;
+        recipesList.innerHTML += recipeCard;
+      });
+    };
+
+    // Arama çubuğu için filtreleme
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const filteredRecipes = recipesData.filter(recipe => 
+        recipe.name.toLowerCase().includes(searchTerm) || 
+        recipe.description.toLowerCase().includes(searchTerm)
+      );
+      displayRecipes(filteredRecipes);
+    });
+
+    // Sayfa yüklendiğinde tarifleri çek
+    fetchRecipes();
+  });
+</script>
+
 
   <!-- Contact Us -->
   <section id="contact">

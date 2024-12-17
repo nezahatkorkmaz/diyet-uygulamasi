@@ -169,3 +169,33 @@ document.getElementById("submit-selected-symptoms").addEventListener("click", as
     alert("Lütfen en az bir semptom seçiniz.");
   }
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const calendar = document.getElementById('calendar');
+  const selectedSymptoms = document.getElementById('selected-symptoms');
+  
+  // Test verisi: Günlere ait semptomlar
+  const symptomData = {
+    '2024-06-01': ['Headache', 'Fatigue'],
+    '2024-06-05': ['Bloating'],
+    '2024-06-10': ['Nausea', 'Dizziness'],
+  };
+
+  // 1 Aylık Takvim Oluşturma
+  const daysInMonth = 30;
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = `2024-06-${String(day).padStart(2, '0')}`;
+    const dayElement = document.createElement('div');
+    dayElement.className = 'calendar-day';
+    dayElement.textContent = day;
+
+    // Güne tıklama eventi
+    dayElement.addEventListener('click', () => {
+      const symptoms = symptomData[date] || ['No symptoms recorded'];
+      selectedSymptoms.innerHTML = symptoms
+        .map(symptom => `<li>${symptom}</li>`)
+        .join('');
+    });
+
+    calendar.appendChild(dayElement);
+  }
+});

@@ -1,10 +1,11 @@
--- Kullanıcı Tablosu
+-- Kullanıcı Tablosu (Admin ve Kullanıcı Rolleri)
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'admin')), -- Rol sütunu (admin, user)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -55,6 +56,20 @@ CREATE TABLE weight_logs (
     log_date DATE NOT NULL
 );
 
+-- Recipes Tablosu
+CREATE TABLE recipes (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    image_url TEXT NOT NULL
+);
+
+-- Örnek Veri: Recipes
+INSERT INTO recipes (name, description, image_url) 
+VALUES 
+('Avocado Toast', 'Simple avocado toast with egg and tomato.', 'https://via.placeholder.com/150'),
+('Oatmeal Bowl', 'Healthy oatmeal with fruits and nuts.', 'https://via.placeholder.com/150');
+
 -- Kullanıcıya Rekomendasyonlar İçin Tablo
 CREATE TABLE recommendations (
     recommendation_id SERIAL PRIMARY KEY,
@@ -63,12 +78,42 @@ CREATE TABLE recommendations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Admin Yetkilendirme Trigger: Sadece Adminler Meals Ekleyebilir
+CREATE OR REPLACE FUNCTION check_admin_role()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Kullanıcı admin değilse işlem iptal edilir
+    IF (SELECT role FROM users WHERE user_id = NEW.user_id) != 'admin' THEN
+        RAISE EXCEPTION 'Yalnızca admin kullanıcıları yeni öğün ekleyebilir.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_admin_meals
+BEFORE INSERT ON meals
+FOR EACH ROW
+EXECUTE FUNCTION check_admin_role();
+
+-- Admin Kullanıcıların Tüm Kullanıcı Bilgilerini Görebileceği VIEW
+CREATE VIEW admin_user_view AS
+SELECT 
+    user_id,
+    first_name,
+    last_name,
+    email,
+    role,
+    created_at
+FROM users
+WHERE role = 'user' OR role = 'admin';
+
 -- Indexleme: Performans İçin
 CREATE INDEX idx_user_id_daily_symptoms ON daily_symptoms(user_id);
 CREATE INDEX idx_user_id_meal_logs ON meal_logs(user_id);
 CREATE INDEX idx_log_date_meal_logs ON meal_logs(log_date);
+CREATE INDEX idx_user_id_meals ON meals(user_id);
 
--- Stored Procedures
+-- Stored Procedures ve Functions
 
 -- 1. Günlük Semptom Ekleme
 CREATE OR REPLACE PROCEDURE add_daily_symptoms(p_user_id INT, p_symptom_ids INT[])
@@ -78,7 +123,7 @@ BEGIN
     FOREACH symptom_id IN ARRAY p_symptom_ids LOOP
         INSERT INTO daily_symptoms (user_id, symptom_id, logged_at)
         VALUES (p_user_id, symptom_id, CURRENT_DATE)
-        ON CONFLICT DO NOTHING; -- Aynı semptom tekrar eklenmesin
+        ON CONFLICT DO NOTHING;
     END LOOP;
     RAISE NOTICE 'Günlük semptomlar başarıyla eklendi!';
 END;
@@ -98,30 +143,7 @@ BEGIN
 END;
 $$;
 
--- 3. Semptom Silme
-CREATE OR REPLACE PROCEDURE delete_daily_symptom(p_user_id INT, p_symptom_id INT)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    DELETE FROM daily_symptoms
-    WHERE user_id = p_user_id AND symptom_id = p_symptom_id AND logged_at = CURRENT_DATE;
-    RAISE NOTICE 'Semptom başarıyla silindi!';
-END;
-$$;
-
--- 4. Semptom Güncelleme
-CREATE OR REPLACE PROCEDURE update_daily_symptom(p_user_id INT, p_old_symptom_id INT, p_new_symptom_id INT)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    UPDATE daily_symptoms
-    SET symptom_id = p_new_symptom_id
-    WHERE user_id = p_user_id AND symptom_id = p_old_symptom_id AND logged_at = CURRENT_DATE;
-    RAISE NOTICE 'Semptom başarıyla güncellendi!';
-END;
-$$;
-
--- 5. Problemli Besinleri Tespit Eden Trigger ve Function
+-- 3. Problemli Besinleri Tespit Eden Trigger ve Function
 CREATE OR REPLACE FUNCTION detect_problematic_foods()
 RETURNS TRIGGER AS $$
 BEGIN
