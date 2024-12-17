@@ -55,6 +55,22 @@ body {
     font-size: 18px;
     color: #555;
 }
+/* Navbar Buton Stili */
+.navbar-button {
+  background-color: #4CAF50; /* Yeşil */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.navbar-button:hover {
+  background-color: #45A049; /* Daha koyu yeşil */
+}
+
 
 /* Feature Containers */
 .feature-containers {
@@ -107,3 +123,170 @@ body {
     color: #4CAF50;
     font-weight: bold;
 }
+/* Water Tracker */
+.water-tracker {
+    text-align: center;
+}
+
+.water-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.circle-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.water-display {
+    background-color: #E0F7FA;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.water-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.water-display p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+.symptom-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.symptom-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.symptom-button:hover,
+.symptom-button.active {
+    background-color: #388E3C;
+    transform: scale(1.05);
+}
+
+#meal-list {
+    list-style: none;
+    padding: 0;
+}
+
+#meal-list li {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.category-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .symptom-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .symptom-button {
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 14px;
+  }
+  
+  .symptom-button:hover {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  .digestion {
+    background-color: #FFEB3B; /* Sarı */
+  }
+  
+  .skin {
+    background-color: #E91E63; /* Pembe */
+  }
+  
+  .respiratory {
+    background-color: #2196F3; /* Mavi */
+  }
+  
+  .nerve {
+    background-color: #9C27B0; /* Mor */
+  }
+  
+  .muscle {
+    background-color: #FF9800; /* Turuncu */
+  }
+  
+  .other {
+    background-color: #8BC34A; /* Yeşil */
+  }
+  
+  .feature-containers {
+    display: flex;
+    flex-direction: column; /* Bölümleri dikey hizalar */
+    gap: 20px; /* Bölümler arası boşluk */
+    padding: 20px;
+  }
+  
+  .feature-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .full-width {
+    width: 100%; /* Tüm satırı kaplar */
+    max-width: 100%;
+    margin: 0; /* Kenar boşluklarını kaldırır */
+  }
+  
+  .water-tracker,
+  .weight-tracker,
+  .feature-container {
+    margin-top: 10px;
+  }

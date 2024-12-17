@@ -5,76 +5,314 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diyet Uygulaması</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#recipes">Recipes</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
-  </nav>
-
-  <!-- Home Section -->
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#symptoms">Symptoms</a></li>
+        <li><a href="#meals">Meals</a></li>
+      </ul>
+    </nav>
+    <!-- Home Section -->
   <section id="home">
     <header class="header">
       <div class="header-background">
         <div class="welcome-text">
           <h1>DİYET UYGULAMASI</h1>
-          <p class="greeting">Hello, Ali Yılmaz! What did you eat today?</p>
+          <p class="greeting">Hello, Ali Osman! What did you eat today?</p>
         </div>
       </div>
     </header>
   </section>
+  <style>
+    /* Genel Stiller */
+    /* Genel Stiller */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
 
-  <!-- Feature Section -->
-  <section id="feature" class="feature-containers">
-    <!-- Symptom and Meals -->
-    <div class="feature-container">
-      <h3>Symptom and Today's Meals</h3>
-      <div class="symptom-meal-container">
-        <div class="symptom-container">
-          <h4>Symptoms</h4>
-          <input type="text" placeholder="Enter symptom (e.g., bloating)" />
-        </div>
-        <div class="meal-container">
-          <h4>Today's Meals</h4>
-          <input type="text" placeholder="Enter meal here" />
-          <button>Add Meal</button>
+.feature-containers {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Full Width Feature Container */
+.feature-container.full-width {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+/* İlk Konteyner İçindeki Bölümler */
+.symptom-container,
+.selected-symptoms-container,
+.meal-container {
+  flex: 1;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Alttaki Üç Feature Container */
+.feature-container {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+/* 3 Feature Container Yan Yana Dizilim */
+.three-containers {
+  display: flex;
+  gap: 20px;
+}
+
+.three-containers .feature-container {
+  flex: 1; /* Üçü eşit genişlikte */
+}
+
+/* Responsive Ayar: Küçük Ekranlarda Alt Alta Diz */
+@media (max-width: 768px) {
+  .feature-container.full-width {
+    flex-direction: column;
+  }
+
+  .three-containers {
+    flex-direction: column;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Feature Containers -->
+  <section class="feature-containers">
+    <!-- Tüm Satırı Kaplayan Konteyner -->
+    <div class="feature-container full-width">
+      <!-- Sol Bölüm: Symptom Selection -->
+      <div class="symptom-container">
+        <h3>Symptom Selection</h3>
+        <div class="symptom-buttons">
+          <button class="symptom-button digestion" data-symptom="Şişkinlik">Şişkinlik</button>
+          <button class="symptom-button digestion" data-symptom="Karın Ağrısı">Karın Ağrısı</button>
+          <button class="symptom-button digestion" data-symptom="Gaz">Gaz</button>
+          <button class="symptom-button digestion" data-symptom="İshal">İshal</button>
+          <button class="symptom-button digestion" data-symptom="Kabızlık">Kabızlık</button>
+          <button class="symptom-button digestion" data-symptom="Mide Bulantısı">Mide Bulantısı</button>
+          <button class="symptom-button digestion" data-symptom="Reflü veya Hazımsızlık">Reflü veya Hazımsızlık</button>
+
+          <button class="symptom-button skin" data-symptom="Kaşıntı">Kaşıntı</button>
+          <button class="symptom-button skin" data-symptom="Kızarıklık">Kızarıklık</button>
+          <button class="symptom-button skin" data-symptom="Kurdeşen">Kurdeşen</button>
+          <button class="symptom-button skin" data-symptom="Egzama">Egzama</button>
+          <button class="symptom-button skin" data-symptom="Deride Şişlik">Deride Şişlik</button>
+
+          <button class="symptom-button respiratory" data-symptom="Burun Akıntısı veya Tıkanıklığı">Burun Akıntısı veya Tıkanıklığı</button>
+          <button class="symptom-button respiratory" data-symptom="Hapşırma">Hapşırma</button>
+          <button class="symptom-button respiratory" data-symptom="Nefes Darlığı">Nefes Darlığı</button>
+          <button class="symptom-button respiratory" data-symptom="Boğaz Kaşıntısı">Boğaz Kaşıntısı</button>
+
+          <button class="symptom-button nerve" data-symptom="Baş Ağrısı">Baş Ağrısı</button>
+          <button class="symptom-button nerve" data-symptom="Migren">Migren</button>
+          <button class="symptom-button nerve" data-symptom="Halsizlik veya Yorgunluk">Halsizlik veya Yorgunluk</button>
+          <button class="symptom-button nerve" data-symptom="Konsantrasyon Bozukluğu">Konsantrasyon Bozukluğu</button>
+          <button class="symptom-button nerve" data-symptom="Sersemlik Hissi">Sersemlik Hissi</button>
+
+          <button class="symptom-button muscle" data-symptom="Eklem Ağrıları">Eklem Ağrıları</button>
+          <button class="symptom-button muscle" data-symptom="Kas Ağrıları">Kas Ağrıları</button>
+          <button class="symptom-button muscle" data-symptom="Kas Güçsüzlüğü">Kas Güçsüzlüğü</button>
+
+          <button class="symptom-button other" data-symptom="Kalp Çarpıntısı">Kalp Çarpıntısı</button>
+          <button class="symptom-button other" data-symptom="Uyku Bozuklukları">Uyku Bozuklukları</button>
+          <button class="symptom-button other" data-symptom="Ağız veya Boğaz Şişmesi">Ağız veya Boğaz Şişmesi</button>
+          <button class="symptom-button other" data-symptom="Kilo Artışı veya Kilo Kaybı">Kilo Artışı veya Kilo Kaybı</button>
+          <button class="symptom-button other" data-symptom="Gözlerde Kaşıntı veya Kızarıklık">Gözlerde Kaşıntı veya Kızarıklık</button>
+
         </div>
       </div>
-    </div>
 
-    <!-- Water Tracker -->
-    <div class="feature-container">
-      <h3>Water Logs</h3>
-      <p>Track your daily water intake</p>
-      <p>Current Water Intake: <span id="water-intake">0L</span></p>
-      <button id="add-water">Log 0.5L Water</button>
-    </div>
+      <!-- Orta Bölüm: Seçilen Semptomlar -->
+      <div class="selected-symptoms-container">
+        <h3>Today's Selected Symptoms</h3>
+        <ul id="selected-symptoms" style="list-style-type: none; padding: 0;"></ul>
+      </div>
 
-    <!-- Calorie Tracker -->
-    <div class="feature-container">
-      <h3>Calorie Tracking</h3>
-      <p>Upload your meal image to estimate calories</p>
-      <input type="file" id="mealImage" />
-      <button>Estimate Calories</button>
-    </div>
+      <<!-- Sağ Bölüm: Bugünün Yemekleri -->
+<div class="meal-container">
+  <h3>Today's Meals</h3>
+  <input type="text" id="meal-input" placeholder="Enter meal name" style="width: 100%; padding: 5px; margin-bottom: 10px;" />
+  <button id="add-meal-button" style="padding: 5px 10px;">Add Meal</button>
+  <button id="delete-selected-meals" style="padding: 5px 10px; margin-top: 10px;">Delete Selected Meals</button>
+  <ul id="meal-list" style="list-style-type: none; padding: 0;"></ul>
+</div>
 
-    <!-- Weight Tracker -->
-    <div class="feature-container weight-tracker">
-      <h3>Weight Tracking</h3>
-      <div class="weight-circle">
-        <button id="decrease-weight" class="circle-button">-</button>
-        <div class="weight-display">
-          <p id="weight-value">64.0</p>
-          <div class="unit-toggle">
-            <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+<script>
+  let mealListData = []; // Veritabanına eklenecek veya silinecek yemekler
+
+  // Yemek ekleme işlevi
+  document.getElementById("add-meal-button").addEventListener("click", () => {
+    const mealInput = document.getElementById("meal-input");
+    const mealName = mealInput.value.trim();
+
+    if (mealName) {
+      const mealList = document.getElementById("meal-list");
+      const li = document.createElement("li");
+      li.textContent = mealName;
+
+      // Checkbox ekleyelim
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "meal-checkbox";
+      checkbox.style.marginRight = "10px";
+
+          // Update butonu
+      const updateButton = document.createElement("button");
+      updateButton.textContent = "Update";
+      updateButton.className = "navbar-button";
+      updateButton.style.marginLeft = "10px";
+      updateButton.onclick = () => updateMeal(li, mealInput);
+
+      // Delete butonu
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.className = "navbar-button";
+      deleteButton.onclick = () => li.remove();
+
+
+      li.prepend(checkbox);
+      li.appendChild(updateButton);
+      li.appendChild(deleteButton);
+      mealList.appendChild(li);
+
+      mealListData.push(mealName);
+      mealInput.value = "";
+    }
+  });
+
+  // Çoklu yemek silme işlevi
+  document.getElementById("delete-selected-meals").addEventListener("click", () => {
+    const selectedMeals = document.querySelectorAll(".meal-checkbox:checked");
+    selectedMeals.forEach(checkbox => {
+      checkbox.parentElement.remove();
+    });
+  });
+
+  // Yemek güncelleme işlevi
+  function updateMeal(mealItem, mealInput) {
+    const newMealName = prompt("Enter the updated meal name:", mealItem.textContent.trim());
+    if (newMealName) {
+      mealItem.childNodes[1].nodeValue = ` ${newMealName} `;
+    }
+  }
+</script>
+    </div>
+  </section>
+
+<script>
+  const selectedSymptoms = [];
+  document.querySelectorAll(".symptom-button").forEach(button => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("active");
+      const symptom = button.getAttribute("data-symptom");
+      if (button.classList.contains("active")) {
+        selectedSymptoms.push(symptom);
+      } else {
+        const index = selectedSymptoms.indexOf(symptom);
+        if (index > -1) selectedSymptoms.splice(index, 1);
+      }
+      displaySelectedSymptoms();
+    });
+  });
+
+  function displaySelectedSymptoms() {
+    const ul = document.getElementById("selected-symptoms");
+    ul.innerHTML = "";
+    selectedSymptoms.forEach(symptom => {
+      const li = document.createElement("li");
+      li.textContent = symptom;
+      ul.appendChild(li);
+    });
+  }
+
+  // Bugünün Yemekleri: CRUD İşlemleri
+  document.getElementById("add-meal-button").addEventListener("click", () => {
+    const mealInput = document.getElementById("meal-input");
+    const mealName = mealInput.value.trim();
+
+    if (mealName) {
+      const mealList = document.getElementById("meal-list");
+      const li = document.createElement("li");
+      li.textContent = mealName;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = () => li.remove();
+
+      li.appendChild(deleteButton);
+      mealList.appendChild(li);
+      mealInput.value = "";
+    }
+  });
+</script>
+
+</body>
+</html>
+
+    <!-- Diğer Feature Container'lar -->
+      <!-- Altındaki 3 Container -->
+    <div class="three-containers">
+      <div class="feature-container">
+        <div class="feature-container water-tracker">
+          <h3>Water Tracking</h3>
+          <div class="water-circle">
+            <button id="decrease-water" class="circle-button">-</button>
+            <div class="water-display">
+              <img src="https://banner2.cleanpng.com/20231227/pw/transparent-cartoon-glass-water-clear-liquid-clear-glass-with-water-smooth-surface-round-1710954634978.webp" 
+                  alt="Water Glass" class="water-icon">
+              <p id="water-amount">0.00</p>
+              <p class="water-unit">L</p>
+            </div>
+            <button id="increase-water" class="circle-button">+</button>
+          </div>
+          <p id="water-progress-text">0.00 / 2L Goal</p>
+        </div>
+      </div>
+      <div class="feature-container">
+        <div class="feature-container weight-tracker">
+          <h3>Weight Tracking</h3>
+          <div class="weight-circle">
+            <button id="decrease-weight" class="circle-button">-</button>
+            <div class="weight-display">
+              <p id="weight-value">64.0</p>
+              <div class="unit-toggle">
+                <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+              </div>
+            </div>
+            <button id="increase-weight" class="circle-button">+</button>
           </div>
         </div>
-        <button id="increase-weight" class="circle-button">+</button>
+      </div>
+      <div class="feature-container">
+        <div class="feature-container">
+          <h3>Calorie Tracking</h3>
+          <p>Upload your meal image to estimate calories</p>
+          <input type="file" id="mealImage" />
+          <button>Estimate Calories</button>
+        </div>
       </div>
     </div>
   </section>
@@ -84,65 +322,6 @@
     <h2>Contact Us</h2>
     <p>If you have any questions, feel free to reach out!</p>
   </section>
-
-  <!-- JavaScript -->
-  <script>
-    // Weight Tracker
-    const decreaseWeight = document.getElementById("decrease-weight");
-    const increaseWeight = document.getElementById("increase-weight");
-    const weightValue = document.getElementById("weight-value");
-
-    const kgButton = document.getElementById("kg");
-    const lbButton = document.getElementById("lb");
-
-    let weight = 64.0;
-    let unit = "KG";
-
-    function updateWeight() {
-      weightValue.innerText = weight.toFixed(1);
-    }
-
-    increaseWeight.addEventListener("click", () => {
-      weight += 0.1;
-      updateWeight();
-    });
-
-    decreaseWeight.addEventListener("click", () => {
-      weight -= 0.1;
-      updateWeight();
-    });
-
-    kgButton.addEventListener("click", () => {
-      if (unit !== "KG") {
-        weight = (weight / 2.205).toFixed(1);
-        unit = "KG";
-        kgButton.classList.add("active");
-        lbButton.classList.remove("active");
-        updateWeight();
-      }
-    });
-
-    lbButton.addEventListener("click", () => {
-      if (unit !== "LB") {
-        weight = (weight * 2.205).toFixed(1);
-        unit = "LB";
-        lbButton.classList.add("active");
-        kgButton.classList.remove("active");
-        updateWeight();
-      }
-    });
-
-    updateWeight();
-
-    // Water Tracker
-    const waterIntake = document.getElementById("water-intake");
-    const addWater = document.getElementById("add-water");
-
-    let water = 0.0;
-    addWater.addEventListener("click", () => {
-      water += 0.5;
-      waterIntake.innerText = `${water}L`;
-    });
-  </script>
+<script src="js/script.js"></script>
 </body>
 </html>
