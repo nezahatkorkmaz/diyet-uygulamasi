@@ -1,5 +1,0 @@
-express
-pg
-sequelize
-body-parser
-cors

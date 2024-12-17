@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Meals - Diyet Uygulamasi{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Today's Meals</h2>
+    <input type="text" id="meal-input" placeholder="Enter meal name">
+    <button id="add-meal-button">Add Meal</button>
+    <ul id="meal-list"></ul>
+</section>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Diyet Uygulaması{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('symptoms') }}">Symptoms</a></li>
+            <li><a href="{{ url_for('meals') }}">Meals</a></li>
+            <li><a href="{{ url_for('users') }}">Users</a></li>
+        </ul>
+    </nav>
+
+    <!-- İçerik Bölgesi -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
