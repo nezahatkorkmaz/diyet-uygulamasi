@@ -151,13 +151,74 @@ body {
         <ul id="selected-symptoms" style="list-style-type: none; padding: 0;"></ul>
       </div>
 
-      <!-- Sağ Bölüm: Bugünün Yemekleri -->
-      <div class="meal-container">
-        <h3>Today's Meals</h3>
-        <input type="text" id="meal-input" placeholder="Enter meal name" style="width: 100%; padding: 5px; margin-bottom: 10px;" />
-        <button id="add-meal-button" style="padding: 5px 10px;">Add Meal</button>
-        <ul id="meal-list" style="list-style-type: none; padding: 0;"></ul>
-      </div>
+      <<!-- Sağ Bölüm: Bugünün Yemekleri -->
+<div class="meal-container">
+  <h3>Today's Meals</h3>
+  <input type="text" id="meal-input" placeholder="Enter meal name" style="width: 100%; padding: 5px; margin-bottom: 10px;" />
+  <button id="add-meal-button" style="padding: 5px 10px;">Add Meal</button>
+  <button id="delete-selected-meals" style="padding: 5px 10px; margin-top: 10px;">Delete Selected Meals</button>
+  <ul id="meal-list" style="list-style-type: none; padding: 0;"></ul>
+</div>
+
+<script>
+  let mealListData = []; // Veritabanına eklenecek veya silinecek yemekler
+
+  // Yemek ekleme işlevi
+  document.getElementById("add-meal-button").addEventListener("click", () => {
+    const mealInput = document.getElementById("meal-input");
+    const mealName = mealInput.value.trim();
+
+    if (mealName) {
+      const mealList = document.getElementById("meal-list");
+      const li = document.createElement("li");
+      li.textContent = mealName;
+
+      // Checkbox ekleyelim
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "meal-checkbox";
+      checkbox.style.marginRight = "10px";
+
+          // Update butonu
+      const updateButton = document.createElement("button");
+      updateButton.textContent = "Update";
+      updateButton.className = "navbar-button";
+      updateButton.style.marginLeft = "10px";
+      updateButton.onclick = () => updateMeal(li, mealInput);
+
+      // Delete butonu
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.className = "navbar-button";
+      deleteButton.onclick = () => li.remove();
+
+
+      li.prepend(checkbox);
+      li.appendChild(updateButton);
+      li.appendChild(deleteButton);
+      mealList.appendChild(li);
+
+      mealListData.push(mealName);
+      mealInput.value = "";
+    }
+  });
+
+  // Çoklu yemek silme işlevi
+  document.getElementById("delete-selected-meals").addEventListener("click", () => {
+    const selectedMeals = document.querySelectorAll(".meal-checkbox:checked");
+    selectedMeals.forEach(checkbox => {
+      checkbox.parentElement.remove();
+    });
+  });
+
+  // Yemek güncelleme işlevi
+  function updateMeal(mealItem, mealInput) {
+    const newMealName = prompt("Enter the updated meal name:", mealItem.textContent.trim());
+    if (newMealName) {
+      mealItem.childNodes[1].nodeValue = ` ${newMealName} `;
+    }
+  }
+</script>
     </div>
   </section>
 

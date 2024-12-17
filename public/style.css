@@ -55,6 +55,22 @@ body {
     font-size: 18px;
     color: #555;
 }
+/* Navbar Buton Stili */
+.navbar-button {
+  background-color: #4CAF50; /* Yeşil */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.navbar-button:hover {
+  background-color: #45A049; /* Daha koyu yeşil */
+}
+
 
 /* Feature Containers */
 .feature-containers {
