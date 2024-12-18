@@ -3,13 +3,92 @@
 {% block title %}Symptoms - Diyet Uygulaması{% endblock %}
 
 {% block content %}
-<section>
-    <h2>Symptom Selection</h2>
-    <div class="symptom-buttons">
-        <button class="symptom-button" data-symptom="Şişkinlik">Şişkinlik</button>
-        <button class="symptom-button" data-symptom="Baş Ağrısı">Baş Ağrısı</button>
-        <!-- Diğer semptom butonları buraya eklenir -->
+<section class="feature-containers">
+    <!-- Symptom Selection Container -->
+    <div class="feature-container full-width">
+        <div class="symptom-container">
+            <h3>Symptom Selection</h3>
+
+            <!-- Sindirim Sistemi -->
+            <div class="category-title">Sindirim Sistemi</div>
+            <div class="symptom-buttons">
+                {% for symptom in symptoms %}
+                    {% if symptom.category == 'digestion' %}
+                        <button class="symptom-button digestion" data-symptom="{{ symptom.symptom_name }}">
+                            {{ symptom.symptom_name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Cilt Problemleri -->
+            <div class="category-title">Cilt Problemleri</div>
+            <div class="symptom-buttons">
+                {% for symptom in symptoms %}
+                    {% if symptom.category == 'skin' %}
+                        <button class="symptom-button skin" data-symptom="{{ symptom.symptom_name }}">
+                            {{ symptom.symptom_name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Solunum Sistemi -->
+            <div class="category-title">Solunum Sistemi</div>
+            <div class="symptom-buttons">
+                {% for symptom in symptoms %}
+                    {% if symptom.category == 'respiratory' %}
+                        <button class="symptom-button respiratory" data-symptom="{{ symptom.symptom_name }}">
+                            {{ symptom.symptom_name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Sinir Sistemi -->
+            <div class="category-title">Sinir Sistemi</div>
+            <div class="symptom-buttons">
+                {% for symptom in symptoms %}
+                    {% if symptom.category == 'nerve' %}
+                        <button class="symptom-button nerve" data-symptom="{{ symptom.symptom_name }}">
+                            {{ symptom.symptom_name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Kas ve Diğer Semptomlar -->
+            <div class="category-title">Kas ve Diğer Semptomlar</div>
+            <div class="symptom-buttons">
+                {% for symptom in symptoms %}
+                    {% if symptom.category == 'muscle' or symptom.category == 'other' %}
+                        <button class="symptom-button {{ symptom.category }}" data-symptom="{{ symptom.symptom_name }}">
+                            {{ symptom.symptom_name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Selected Symptoms -->
+        <div class="selected-symptoms-container">
+            <h3>Today's Selected Symptoms</h3>
+            <ul id="selected-symptoms" style="list-style-type: none; padding: 0;"></ul>
+        </div>
+
+        <!-- Meals Container -->
+        <div class="meal-container">
+            <h3>Today's Meals</h3>
+            <form method="POST" action="{{ url_for('add_meal') }}">
+                <input type="text" name="meal_name" id="meal-input" placeholder="Enter meal name" required>
+                <button type="submit" class="navbar-button">Add Meal</button>
+            </form>
+            <ul id="meal-list">
+                {% for meal in meals %}
+                    <li>{{ meal.meal_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </section>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock %}

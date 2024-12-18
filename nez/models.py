@@ -20,4 +20,13 @@ class Meal(db.Model):
 class Symptom(db.Model):
     __tablename__ = 'symptoms'
     symptom_id = db.Column(db.Integer, primary_key=True)
-    symptom_name = db.Column(db.String(255), nullable=False, unique=True)
+    symptom_name = db.Column(db.String(255), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
+
+    # İlişkiyi tanımla
+    category = db.relationship("Category", backref="symptoms")
+
+class Category(db.Model):
+    __tablename__ = 'categories'
+    category_id = db.Column(db.Integer, primary_key=True)
+    category_name = db.Column(db.String(50), nullable=False)

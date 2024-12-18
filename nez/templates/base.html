@@ -11,13 +11,13 @@
     <nav class="navbar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('symptoms') }}">Symptoms</a></li>
             <li><a href="{{ url_for('meals') }}">Meals</a></li>
+            <li><a href="{{ url_for('symptoms') }}">Symptoms</a></li>
             <li><a href="{{ url_for('users') }}">Users</a></li>
         </ul>
     </nav>
 
-    <!-- İçerik Bölgesi -->
+    <!-- Ana İçerik -->
     <main>
         {% block content %}{% endblock %}
     </main>

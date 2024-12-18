@@ -34,3 +34,130 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/* Kategori Renkleri */
+.digestion {
+    background-color: #FFEB3B; /* Sarı */
+}
+
+.skin {
+    background-color: #E91E63; /* Pembe */
+}
+
+.respiratory {
+    background-color: #2196F3; /* Mavi */
+}
+
+.nerve {
+    background-color: #9C27B0; /* Mor */
+}
+
+.muscle {
+    background-color: #FF9800; /* Turuncu */
+}
+
+.other {
+    background-color: #8BC34A; /* Yeşil */
+}
+
+/* Konteynerler Arası Düzen */
+.feature-containers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+.feature-container {
+    flex: 1;
+    min-width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.category-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333;
+    text-align: left;
+}
+
+.symptom-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.symptom-button {
+    border: none;
+    border-radius: 20px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #333;
+    font-size: 14px;
+}
+
+.symptom-button:hover,
+.symptom-button.active {
+    transform: scale(1.05);
+    color: white;
+}
+
+/* Genel Stiller */
+.three-containers {
+    display: flex;
+    gap: 20px;
+}
+
+.feature-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+}
+
+.water-circle, .weight-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.circle-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+}
+
+.water-display, .weight-display {
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.water-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.water-unit {
+    font-size: 12px;
+}

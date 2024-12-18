@@ -6,8 +6,80 @@
 <section id="home">
     <div class="header-background">
         <div class="welcome-text">
-            <h1>Welcome to Diyet Uygulaması</h1>
-            <p>Hello, Ali Osman! What did you eat today?</p>
+            <h1>DİYET UYGULAMASI</h1>
+            <p class="greeting">Merhaba, Hoş Geldiniz! Bugün ne yediniz?</p>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Containers -->
+<section class="feature-containers">
+    <!-- 3 Özellik Yan Yana -->
+    <div class="three-containers">
+        <!-- Water Tracker -->
+        <div class="feature-container water-tracker">
+            <h3>Water Tracking</h3>
+            <div class="water-circle">
+                <button id="decrease-water" class="circle-button">-</button>
+                <div class="water-display">
+                    <img src="https://clipart.world/wp-content/uploads/2021/05/Water-Bottle-clipart-transparent-background.png" alt="Water Glass" class="water-icon">
+                    <p id="water-amount">0.00</p>
+                    <p class="water-unit">L</p>
+                </div>
+                <button id="increase-water" class="circle-button">+</button>
+            </div>
+            <p id="water-progress-text">0.00 / 2L Goal</p>
+        </div>
+
+        <!-- Weight Tracker -->
+        <div class="feature-container weight-tracker">
+            <h3>Weight Tracking</h3>
+            <div class="weight-circle">
+                <button id="decrease-weight" class="circle-button">-</button>
+                <div class="weight-display">
+                    <img src="https://w1.pngwing.com/pngs/368/341/png-transparent-measuring-scales-yellow-cartoon-animation-human-body-weight-balans-steelyard-balance-line-area-thumbnail.png" 
+                        alt="Scale" class="water-icon">
+                    <p id="weight-value">64.0</p>
+                    <div class="unit-toggle">
+                        <span id="kg" class="active">KG</span> | <span id="lb">LB</span>
+                    </div>
+                </div>
+                <button id="increase-weight" class="circle-button">+</button>
+            </div>
+        </div>
+
+        <!-- Calorie Tracking -->
+        <div class="feature-container">
+            <h3>Calorie Tracking</h3>
+            <p>Upload your meal image to estimate calories</p>
+            <input type="file" id="mealImage" />
+            <button class="navbar-button">Estimate Calories</button>
+        </div>
+    </div>
+
+    <!-- Today's Meals and Symptoms -->
+    <div class="feature-container full-width">
+        <!-- Bugün Ne Yedin -->
+        <div class="meal-container">
+            <h3>Today's Meals</h3>
+            <form method="POST" action="{{ url_for('add_meal') }}">
+                <input type="text" name="meal_name" placeholder="Enter meal name" required>
+                <button type="submit" class="navbar-button">Add Meal</button>
+            </form>
+            <ul id="meal-list">
+                {% for meal in meals %}
+                <li>{{ meal.meal_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Bugünün Semptomları -->
+        <div class="selected-symptoms-container">
+            <h3>Today's Symptoms</h3>
+            <ul>
+                <li>Semptom: Baş Ağrısı</li>
+                <li>Semptom: Şişkinlik</li>
+            </ul>
         </div>
     </div>
 </section>
