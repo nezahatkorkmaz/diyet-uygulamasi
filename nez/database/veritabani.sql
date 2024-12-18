@@ -163,16 +163,48 @@ AFTER INSERT ON meal_logs
 FOR EACH ROW
 EXECUTE FUNCTION detect_problematic_foods();
 
--- Örnek Semptom Verileri
-INSERT INTO symptoms (symptom_name) VALUES 
-('Şişkinlik'), ('Karın Ağrısı'), ('Gaz'), ('İshal'), 
-('Kabızlık'), ('Mide Bulantısı'), ('Reflü'), ('Kaşıntı'), 
-('Kızarıklık'), ('Egzama'), ('Baş Ağrısı'), ('Migren'),
-('Halsizlik'), ('Konsantrasyon Bozukluğu'), ('Sersemlik Hissi'),
-('Eklem Ağrıları'), ('Kas Ağrıları'), ('Kas Güçsüzlüğü'),
-('Kalp Çarpıntısı'), ('Uyku Bozuklukları'), ('Ağız veya Boğaz Şişmesi'),
-('Kilo Artışı veya Kilo Kaybı'), ('Gözlerde Kaşıntı veya Kızarıklık')
-ON CONFLICT DO NOTHING;
+INSERT INTO symptoms (symptom_name, category_id) VALUES
+-- Sindirim Sistemi (category_id = 1)
+('Şişkinlik', 1),
+('Karın Ağrısı', 1),
+('Gaz', 1),
+('İshal', 1),
+('Kabızlık', 1),
+('Mide Bulantısı', 1),
+('Reflü veya Hazımsızlık', 1),
+
+-- Sinir Sistemi (category_id = 2)
+('Baş Ağrısı', 2),
+('Migren', 2),
+('Halsizlik veya Yorgunluk', 2),
+('Konsantrasyon Bozukluğu', 2),
+('Sersemlik Hissi', 2),
+
+-- Cilt Problemleri (category_id = 3)
+('Kaşıntı', 3),
+('Kızarıklık', 3),
+('Egzama', 3),
+('Kurdeşen', 3),
+('Deride Şişlik', 3),
+
+-- Solunum Sistemi (category_id = 4)
+('Burun Akıntısı', 4),
+('Hapşırma', 4),
+('Nefes Darlığı', 4),
+('Boğaz Kaşıntısı', 4),
+
+-- Kas Problemleri (category_id = 5)
+('Kas Ağrıları', 5),
+('Kas Güçsüzlüğü', 5),
+
+-- Diğer Semptomlar (category_id = 6)
+('Kalp Çarpıntısı', 6),
+('Uyku Bozuklukları', 6),
+('Ağız veya Boğaz Şişmesi', 6),
+('Kilo Artışı veya Kilo Kaybı', 6),
+('Gözlerde Kaşıntı veya Kızarıklık', 6)
+ON CONFLICT (symptom_name) DO NOTHING;
+
 
 -- Örnek Recipe Verileri
 INSERT INTO recipes (name, description, image_url) 
